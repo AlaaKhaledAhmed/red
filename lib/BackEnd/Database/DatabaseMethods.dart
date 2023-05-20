@@ -6,7 +6,6 @@ import 'package:red_crescent/Widget/AppConstants.dart';
 import 'package:red_crescent/Widget/AppWidget.dart';
 
 class AddToFirebase {
-  //=======================Student Sing up method======================================
 
   static Future<String> singUp({
     required String name,
