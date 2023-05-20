@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppIcons {
+class ShowIcons {
   static IconData language =Icons.language;
   static IconData logout =Icons.logout_rounded;
   static IconData close =Icons.close;

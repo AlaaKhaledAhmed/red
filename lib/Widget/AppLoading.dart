@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:red_crescent/translations/locale_keys.g.dart';
 import 'package:red_crescent/Widget/AppButtons.dart';
 import 'package:red_crescent/Widget/AppText.dart';
 import 'package:red_crescent/Widget/AppColors.dart';
@@ -8,7 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
-class AppLoading {
+class ShowLoading {
   static show(context, String title, String content,
       {bool showButtom = false,
       void Function()? yesFunction,
@@ -25,14 +24,14 @@ class AppLoading {
             elevation: 0,
 
             backgroundColor:
-                content == "lode" ? Colors.transparent : AppColor.white,
+                content == "lode" ? Colors.transparent : ShowColor.white,
 
 //tittle-------------------------------------------------------------------
 
             title: content != "lode"
                 ? Container(
                     decoration: BoxDecoration(
-                        color: AppColor.appBarColor,
+                        color: ShowColor.appBarColor,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.r),
                             topRight: Radius.circular(10.r))),
@@ -42,7 +41,7 @@ class AppLoading {
                       child: AppText(
                         fontSize: AppSize.buttonsFontSize,
                         text: title,
-                        color: AppColor.white,
+                        color: ShowColor.white,
                       ),
                     ),
                   )
@@ -64,7 +63,7 @@ class AppLoading {
                           child: AppText(
                             fontSize: AppSize.subTextSize + 2,
                             text: content,
-                            color: AppColor.black,
+                            color: ShowColor.black,
                             align: TextAlign.center,
                           ),
                         ),
@@ -74,7 +73,7 @@ class AppLoading {
                         showButtom
                             ? const Divider(
                                 thickness: 1,
-                                color: AppColor.appBarColor,
+                                color: ShowColor.appBarColor,
                               )
                             : const SizedBox(),
                         SizedBox(height: 10.h),
@@ -91,19 +90,19 @@ class AppLoading {
                                     children: [
 // yes bottoms-------------------------------------------------------------------
                                       Expanded(
-                                          child: AppButtons(
+                                          child: ShowButtons(
                                         onPressed: yesFunction,
-                                        text: LocaleKeys.yes.tr(),
-                                        bagColor: AppColor.appBarColor,
+                                        text: 'نعم',
+                                        bagColor: ShowColor.appBarColor,
                                       )),
 
                                       SizedBox(width: 20.w),
 //no buttom-------------------------------------------------------------------
                                       Expanded(
-                                        child: AppButtons(
+                                        child: ShowButtons(
                                           onPressed: noFunction,
-                                          text: LocaleKeys.no.tr(),
-                                          bagColor: AppColor.appBarColor,
+                                          text: 'لا',
+                                          bagColor: ShowColor.appBarColor,
                                         ),
                                       )
                                     ]),
@@ -136,7 +135,7 @@ class AppLoading {
                               Navigator.pop(context);
                             },
                             icon: Icon(Icons.clear,
-                                color: AppColor.black, size: 35.sp)),
+                                color: ShowColor.black, size: 35.sp)),
                       ),
                     )
                   : const SizedBox()
