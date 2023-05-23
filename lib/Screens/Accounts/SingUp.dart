@@ -15,6 +15,8 @@ import 'package:red_crescent/Widget/AppWidget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:red_crescent/Widget/AppClipperDarkBlueContainer.dart';
+import '../../BackEnd/Database/DatabaseMethods.dart';
+import '../../Widget/AppLoading.dart';
 import '../../Widget/AppSvg.dart';
 
 class SingUp extends StatefulWidget {
@@ -101,7 +103,7 @@ class _SingUpState extends State<SingUp> {
                           top: 167.h,
                           right: 32.w,
                           child: AppText(
-                            text: 'تسجيل الدخول',
+                            text: 'إنشاء حساب',
                             fontSize: AppSize.titleTextSize + 2,
                             fontWeight: FontWeight.bold,
                           )),
@@ -179,7 +181,38 @@ class _SingUpState extends State<SingUp> {
                         right: 28.w,
                         child: AppButtons(
                           text: 'انشاء حساب',
-                          onPressed: () {},
+                          onPressed: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            if (addKey.currentState?.validate() == true) {
+                              AppLoading.show(context, '', 'lode');
+                              Database.singUp(
+                                name: nameController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
+                                address: addressController.text,
+                                phone: phoneController.text,
+                              ).then((String v) {
+                                print('================$v');
+                                if (v == 'done') {
+                                  Navigator.pop(context);
+                                  AppLoading.show(context, 'انشاء حساب',
+                                      'تمت العملية بنجاح');
+                                } else if (v == 'weak-password') {
+                                  Navigator.pop(context);
+                                  AppLoading.show(context, 'انشاء حساب',
+                                      'كلمة المرور ضعيفة');
+                                } else if (v == 'email-already-in-use') {
+                                  Navigator.pop(context);
+                                  AppLoading.show(context, 'انشاء حساب',
+                                      'البريد الالكتروني موجود مسبقا');
+                                } else {
+                                  Navigator.pop(context);
+                                  AppLoading.show(
+                                      context, 'انشاء حساب', 'حدث خطا ما');
+                                }
+                              });
+                            }
+                          },
                           width: 270.w,
                           bagColor: AppColor.darkBlue,
                         ),

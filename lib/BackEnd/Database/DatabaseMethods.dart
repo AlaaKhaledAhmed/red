@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:red_crescent/Widget/AppConstants.dart';
 import 'package:red_crescent/Widget/AppWidget.dart';
 
-class AddToFirebase {
+class Database {
 
   static Future<String> singUp({
     required String name,
