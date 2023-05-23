@@ -12,8 +12,10 @@ class AppTextFields extends StatelessWidget {
   final TextEditingController? controller;
   final String? labelText;
   final FontWeight? fontWeight;
+  final sufficIcon;
   const AppTextFields({
     Key? key,
+    this.sufficIcon,
     required this.validator,
     this.inputFormatters,
     this.keyboardType,
@@ -32,9 +34,11 @@ class AppTextFields extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       autofocus: false,
       inputFormatters: inputFormatters,
+      
       keyboardType: keyboardType,
       controller: controller,
       style: TextStyle(
+        
           color: AppColor.mainTextFieldsColor,
           fontSize: AppSize.textFieldsFontSize),
       decoration: InputDecoration(
@@ -72,6 +76,7 @@ class AppTextFields extends StatelessWidget {
             ),
           ),
           labelText: labelText,
+          suffixIcon:sufficIcon,
           //errorStyle: TextStyle(color: AppColor.errorColor, fontSize: WidgetSize.errorSize),
           contentPadding: EdgeInsets.all(AppSize.contentPadding)),
     );

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:red_crescent/Screens/Accounts/Login.dart';
+import 'package:red_crescent/Screens/Accounts/SingUp.dart';
 import 'package:red_crescent/Widget/AppButtons.dart';
 import 'package:red_crescent/Widget/AppClipperBlueContiner.dart';
 import 'package:red_crescent/Widget/AppColors.dart';
@@ -18,16 +19,29 @@ import 'package:red_crescent/Widget/AppClipperDarkBlueContainer.dart';
 import '../../Database/DatabaseMethods.dart';
 import '../../Widget/AppLoading.dart';
 import '../../Widget/AppSvg.dart';
+import '../Pataion/PationNav.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   TextEditingController nameController = TextEditingController();
+
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   TextEditingController phoneController = TextEditingController();
+
   TextEditingController addressController = TextEditingController();
+
   GlobalKey<FormState> addKey = GlobalKey();
+
+  bool isShow = true;
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +148,14 @@ class Login extends StatelessWidget {
                                     labelText: 'كلمة المرور',
                                     validator: (v) =>
                                         AppValidator.validatorPassword(v),
+                                    obscureText: isShow,
+                                    sufficIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            isShow = !isShow;
+                                          });
+                                        },
+                                        icon: Icon(Icons.visibility)),
                                   ),
 
                                   AppWidget.hSpace(AppSize.hSpace),
@@ -180,8 +202,16 @@ class Login extends StatelessWidget {
                                     Navigator.pop(context);
                                     value.docs.forEach((element) {
                                       print('respoms is: $v');
-                                      if (element.data()['type'] == 'user') {
-                                      } else {}
+                                      if (element.data()['type'] == 'pation') {
+
+                                        AppRoutes.pushReplacementTo(context, const PationNav());
+                                      } else if (element.data()['type'] ==
+                                          'hospital') {
+                                            AppRoutes.pushReplacementTo(context, const PationNav());
+                                      
+                                      } else {
+                                        //nav
+                                      }
                                     });
                                   });
                                 }
@@ -199,7 +229,7 @@ class Login extends StatelessWidget {
                           left: 90.w,
                           child: InkWell(
                             onTap: () =>
-                                AppRoutes.pushReplacementTo(context, Login()),
+                                AppRoutes.pushReplacementTo(context, SingUp()),
                             child: AppText(
                               text: 'ليس لديك حساب؟ انشاء حساب',
                               fontSize: AppSize.subTextSize,

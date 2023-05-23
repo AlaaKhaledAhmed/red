@@ -33,7 +33,7 @@ class _SingUpState extends State<SingUp> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   GlobalKey<FormState> addKey = GlobalKey();
-
+  bool isShow = true;
   @override
   Widget build(BuildContext context) {
     var bottom = MediaQuery.of(context).viewInsets.bottom;
@@ -143,11 +143,19 @@ class _SingUpState extends State<SingUp> {
                                   AppWidget.hSpace(AppSize.hSpace),
 
                                   ///pass=======================================
-                                  AppTextFields(
+                                   AppTextFields(
                                     controller: passwordController,
                                     labelText: 'كلمة المرور',
                                     validator: (v) =>
                                         AppValidator.validatorPassword(v),
+                                    obscureText: isShow,
+                                    sufficIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            isShow = !isShow;
+                                          });
+                                        },
+                                        icon: Icon(Icons.visibility)),
                                   ),
                                   AppWidget.hSpace(AppSize.hSpace),
 
