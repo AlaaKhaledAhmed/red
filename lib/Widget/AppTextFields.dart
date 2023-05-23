@@ -26,6 +26,7 @@ class AppTextFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      scrollPadding:  EdgeInsets.only(bottom: 400.h),
       obscureText: obscureText ?? false,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -58,7 +59,7 @@ class AppTextFields extends StatelessWidget {
             borderRadius:
                 BorderRadius.circular(AppSize.textFieldsBorderRadius),
             borderSide: BorderSide(
-              color: AppColor.buttonsColor,
+              color: AppColor.darkBlue,
               width: AppSize.textFieldsBorderWidth,
             ),
           ),

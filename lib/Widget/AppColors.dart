@@ -12,7 +12,7 @@ class AppColor {
   static Color white30 = Colors.white30;
   static Color mainColor = Colors.white70;
   static Color errorColor = Colors.red;
-  static Color textFieldBorderColor = const Color(0xffD8DADC);
+  static Color textFieldBorderColor = const Color(0xffaca9a9);
   static Color buttonsColor = Colors.brown.shade600;
   static Color grey600 = Colors.grey.shade600;
   static Color buttonsTextColor = white;

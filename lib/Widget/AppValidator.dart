@@ -15,12 +15,12 @@ class AppValidator {
 
 //valid name data============================================================
   static String? validatorName(name) {
-    final nameRegExp = RegExp(r"^\s*([A-Za-z]{2,10})$");
+    final nameRegExp = RegExp(r"^[\u0621-\u064A\u0660-\u0669 ]+$");
     if (name.isEmpty) {
       return 'حقل اجباري';
     }
     if (nameRegExp.hasMatch(name) == false) {
-      return"رقم غير صالح";
+      return 'الاسم يجب ان يكون حروف عربية فقط';
     } else {
       return null;
     }
