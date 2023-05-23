@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:red_crescent/BackEnd/Database/DatabaseMethods.dart';
-import 'package:red_crescent/Widget/AppButtons.dart';
-import 'package:red_crescent/Widget/AppColors.dart';
 import 'package:red_crescent/Widget/AppSvg.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widget/AppRoutes.dart';
 import 'Login.dart';
 
@@ -19,28 +16,24 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(seconds: 5),() {
+      AppRoutes.pushReplacementTo(context, const Login());
+    },);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: double.infinity,
         width: double.infinity,
-        child: ShowButtons(
-            width: 20,
-            onPressed: () {
-              AddToFirebase.singUp(
-                      name: 'name',
-                      email: 'tat@gmail.com',
-                      password: 'password',
-                      address: 'address',
-                      phone: 'phone')
-                  .then((value) {
-                print(value);
-              });
-            },
-            text: "انشاء حساب"),
+        child: Center(
+          child: SvgPicture.asset(
+            AppSvg.logoEn,
+            height: 131.h,
+            width: 125.w,
+          ),
+        ),
       ),
     );
   }

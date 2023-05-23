@@ -19,18 +19,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-   @override
+  @override
   Widget build(BuildContext context) {
-    //FlutterStatusbarcolor.setStatusBarColor(Colors.white);
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
-        
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             //visualDensity: VisualDensity.adaptivePlatformDensity,
-            fontFamily:GoogleFonts.inter().fontFamily,
+            fontFamily: GoogleFonts.inter().fontFamily,
             //"DroidKufi",
             scaffoldBackgroundColor: ShowColor.white,
           ),
@@ -40,7 +38,7 @@ class _MyAppState extends State<MyApp> {
               child: widget!,
             );
           },
-          home:FirstScreen() ,
+          home: FirstScreen(),
         );
       },
     );
