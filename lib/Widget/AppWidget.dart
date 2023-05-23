@@ -55,7 +55,7 @@ class AppWidget {
   //container decoration===============================================================
   static BoxDecoration decoration({double? radius, Color? color}) {
     return BoxDecoration(
-        color: color ?? ShowColor.white,
+        color: color ?? AppColor.white,
         borderRadius: BorderRadius.all(Radius.circular(radius ?? 20.r)));
   }
 

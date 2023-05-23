@@ -19,7 +19,7 @@ class AddToFirebase {
           .createUserWithEmailAndPassword(
               email: email.trim(), password: password);
       if (userCredential.user != null) {
-        await ShowConstants.userCollection.add({
+        await AppConstants.userCollection.add({
           'name': name,
           'userId': userCredential.user?.uid,
           'password': password,

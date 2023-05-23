@@ -6,7 +6,7 @@ import'package:red_crescent/Widget/AppText.dart';
 import'package:red_crescent/Widget/AppColors.dart';
 import'package:red_crescent/Widget/AppSize.dart';
 
-class ShowButtons extends StatelessWidget {
+class AppButtons extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
   final Color? bagColor;
@@ -14,7 +14,7 @@ class ShowButtons extends StatelessWidget {
   final TextOverflow? overflow;
   final double? width;
   final double? elevation;
-  const ShowButtons(
+  const AppButtons(
       {Key? key,
       required this.onPressed,
       required this.text,
@@ -34,15 +34,15 @@ class ShowButtons extends StatelessWidget {
         child: AppText(
           fontSize: AppSize.buttonsFontSize,
           text: text,
-          color: textStyleColor ?? ShowColor.buttonsTextColor,
+          color: textStyleColor ?? AppColor.buttonsTextColor,
           fontFamily: GoogleFonts.inter().fontFamily,
         ),
         style: ElevatedButton.styleFrom(
-          primary: bagColor ?? ShowColor.buttonsColor,
+          primary: bagColor ?? AppColor.buttonsColor,
           elevation: elevation ?? 1.5,
           textStyle: TextStyle(
               fontFamily: GoogleFonts.inter().fontFamily,
-              color: textStyleColor ?? ShowColor.buttonsTextColor,
+              color: textStyleColor ?? AppColor.buttonsTextColor,
               fontSize: AppSize.buttonsFontSize,
               fontStyle: FontStyle.normal),
         ),

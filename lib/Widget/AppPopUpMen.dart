@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ShowPopUpMen extends StatelessWidget {
+class AppPopUpMen extends StatelessWidget {
   final List<PopupMenuEntry> menuList;
   final Widget? icon;
-  const ShowPopUpMen({Key? key, required this.menuList, this.icon})
+  const AppPopUpMen({Key? key, required this.menuList, this.icon})
       : super(key: key);
 
   @override

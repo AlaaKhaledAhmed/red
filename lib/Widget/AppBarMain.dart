@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import'package:red_crescent/Widget/AppText.dart';
 import'package:red_crescent/Widget/AppColors.dart';
 import'package:red_crescent/Widget/AppSize.dart';
-class ShowBarMain extends StatelessWidget with PreferredSizeWidget {
+class AppBarMain extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final Color? background;
   final Color? textColor;
   final double? elevation;
   final double? radius;
   final double? high;
-  const ShowBarMain(
+  const AppBarMain(
       {Key? key,
       required this.title,
       this.background,
@@ -26,11 +26,11 @@ class ShowBarMain extends StatelessWidget with PreferredSizeWidget {
     
       centerTitle: true,
       elevation: elevation ?? 2,
-      backgroundColor: background ?? ShowColor.appBarColor,
+      backgroundColor: background ?? AppColor.appBarColor,
       title: AppText(
         fontSize: AppSize.titleTextSize,
         text: title,
-        color: textColor ?? ShowColor.white,
+        color: textColor ?? AppColor.white,
         fontWeight: FontWeight.bold,
       ),
       shape: RoundedRectangleBorder(

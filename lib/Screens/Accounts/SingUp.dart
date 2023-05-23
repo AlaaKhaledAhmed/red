@@ -35,7 +35,7 @@ class SingUp extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
-      backgroundColor: ShowColor.black,
+      backgroundColor: AppColor.black,
      );
   }
 }

@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
             //visualDensity: VisualDensity.adaptivePlatformDensity,
             fontFamily: GoogleFonts.inter().fontFamily,
             //"DroidKufi",
-            scaffoldBackgroundColor: ShowColor.white,
+            scaffoldBackgroundColor: AppColor.white,
           ),
           builder: (context, widget) {
             return MediaQuery(

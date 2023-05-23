@@ -7,7 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
-class ShowLoading {
+class AppLoading {
   static show(context, String title, String content,
       {bool showButtom = false,
       void Function()? yesFunction,
@@ -24,14 +24,14 @@ class ShowLoading {
             elevation: 0,
 
             backgroundColor:
-                content == "lode" ? Colors.transparent : ShowColor.white,
+                content == "lode" ? Colors.transparent : AppColor.white,
 
 //tittle-------------------------------------------------------------------
 
             title: content != "lode"
                 ? Container(
                     decoration: BoxDecoration(
-                        color: ShowColor.appBarColor,
+                        color: AppColor.appBarColor,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.r),
                             topRight: Radius.circular(10.r))),
@@ -41,7 +41,7 @@ class ShowLoading {
                       child: AppText(
                         fontSize: AppSize.buttonsFontSize,
                         text: title,
-                        color: ShowColor.white,
+                        color: AppColor.white,
                       ),
                     ),
                   )
@@ -63,7 +63,7 @@ class ShowLoading {
                           child: AppText(
                             fontSize: AppSize.subTextSize + 2,
                             text: content,
-                            color: ShowColor.black,
+                            color: AppColor.black,
                             align: TextAlign.center,
                           ),
                         ),
@@ -73,7 +73,7 @@ class ShowLoading {
                         showButtom
                             ? const Divider(
                                 thickness: 1,
-                                color: ShowColor.appBarColor,
+                                color: AppColor.appBarColor,
                               )
                             : const SizedBox(),
                         SizedBox(height: 10.h),
@@ -90,19 +90,19 @@ class ShowLoading {
                                     children: [
 // yes bottoms-------------------------------------------------------------------
                                       Expanded(
-                                          child: ShowButtons(
+                                          child: AppButtons(
                                         onPressed: yesFunction,
                                         text: 'نعم',
-                                        bagColor: ShowColor.appBarColor,
+                                        bagColor: AppColor.appBarColor,
                                       )),
 
                                       SizedBox(width: 20.w),
 //no buttom-------------------------------------------------------------------
                                       Expanded(
-                                        child: ShowButtons(
+                                        child: AppButtons(
                                           onPressed: noFunction,
                                           text: 'لا',
-                                          bagColor: ShowColor.appBarColor,
+                                          bagColor: AppColor.appBarColor,
                                         ),
                                       )
                                     ]),
@@ -135,7 +135,7 @@ class ShowLoading {
                               Navigator.pop(context);
                             },
                             icon: Icon(Icons.clear,
-                                color: ShowColor.black, size: 35.sp)),
+                                color: AppColor.black, size: 35.sp)),
                       ),
                     )
                   : const SizedBox()

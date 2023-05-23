@@ -34,17 +34,17 @@ class AppTextFields extends StatelessWidget {
       keyboardType: keyboardType,
       controller: controller,
       style: TextStyle(
-          color: ShowColor.mainTextFieldsColor,
+          color: AppColor.mainTextFieldsColor,
           fontSize: AppSize.textFieldsFontSize),
       decoration: InputDecoration(
 
           filled: true,
           hintStyle: TextStyle(
-              color: ShowColor.labelTextFieldsColor,
+              color: AppColor.labelTextFieldsColor,
               fontSize: AppSize.textFieldsHintSize),
-          fillColor: ShowColor.white,
+          fillColor: AppColor.white,
           labelStyle: TextStyle(
-              color: ShowColor.labelTextFieldsColor,
+              color: AppColor.labelTextFieldsColor,
               fontSize: AppSize.textFieldsFontSize),
           border: OutlineInputBorder(
             borderRadius:
@@ -58,7 +58,7 @@ class AppTextFields extends StatelessWidget {
             borderRadius:
                 BorderRadius.circular(AppSize.textFieldsBorderRadius),
             borderSide: BorderSide(
-              color: ShowColor.buttonsColor,
+              color: AppColor.buttonsColor,
               width: AppSize.textFieldsBorderWidth,
             ),
           ),
@@ -66,7 +66,7 @@ class AppTextFields extends StatelessWidget {
             borderRadius:
                 BorderRadius.circular(AppSize.textFieldsBorderRadius),
             borderSide: BorderSide(
-              color: ShowColor.textFieldBorderColor,
+              color: AppColor.textFieldBorderColor,
               width: AppSize.textFieldsBorderWidth,
             ),
           ),

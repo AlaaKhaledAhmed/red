@@ -3,6 +3,7 @@ import 'package:red_crescent/Widget/AppClipperBlueContiner.dart';
 import 'package:red_crescent/Widget/AppColors.dart';
 import 'package:red_crescent/Widget/AppGreenContainer.dart';
 import 'package:red_crescent/Widget/AppSize.dart';
+import 'package:red_crescent/Widget/AppText.dart';
 import 'package:red_crescent/Widget/AppWidget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +32,7 @@ class _LoginState extends State<Login> {
                   child: ClipPath(
                     clipper: AppClipperDarkBlueContainer(),
                     child: Container(
-                      color: ShowColor.darkBlue,
+                      color: AppColor.darkBlue,
                     ),
                   ),
                 ),
@@ -43,7 +44,7 @@ class _LoginState extends State<Login> {
                     clipper: AppClipperBlueContainer(),
                     child: Container(
                       width: AppWidget.getWidth(context) * 0.90,
-                      color: ShowColor.blue,
+                      color: AppColor.blue,
                     ),
                   ),
                 )),
@@ -54,7 +55,7 @@ class _LoginState extends State<Login> {
                   child: ClipPath(
                     clipper: AppClipperGreenContainer(),
                     child: Container(
-                      color: ShowColor.green,
+                      color: AppColor.green,
                       width: AppWidget.getWidth(context) * 0.90,
                     ),
                   ),
@@ -70,8 +71,28 @@ class _LoginState extends State<Login> {
                     width: 99.w,
                   ),
                 ),
-//logo image============================================================================
-
+//lodging text============================================================================
+                Positioned(
+                 top: 167.h,
+                 right: 32.w,
+                 left: 172.w,
+                 child: AppText(
+                  text: 'تسجيل الدخول',
+                  fontSize: AppSize.titleTextSize+2,
+                   fontWeight: FontWeight.bold,
+                )),
+//lodging text============================================================================
+                Positioned(
+                    top: 230.h,
+                    right: 28.w,
+                    left: 250.w,
+                    child: AppText(
+                      text: 'اسم المستخدم',
+                      fontSize: AppSize.subTextSize,
+                      fontWeight: FontWeight.bold,
+                    )),
+//textField text============================================================================
+                Container()
               ],
             )),
       ),
