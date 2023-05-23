@@ -114,7 +114,7 @@ class AppLoading {
                 : SizedBox(
                     width: double.infinity,
                     height: 200.h,
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.topCenter,
                       child: CircularProgressIndicator(
                         //"assets/Lottie/lode.json",
