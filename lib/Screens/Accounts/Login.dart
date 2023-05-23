@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:red_crescent/BackEnd/Database/DatabaseMethods.dart';
+import 'package:red_crescent/Database/DatabaseMethods.dart';
 import 'package:red_crescent/Widget/AppLoading.dart';
 import '../../Widget/AppConstants.dart';
 import '../../Widget/AppWidget.dart';

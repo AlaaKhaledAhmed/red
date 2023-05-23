@@ -31,7 +31,7 @@ class AppLoading {
             title: content != "lode"
                 ? Container(
                     decoration: BoxDecoration(
-                        color: AppColor.appBarColor,
+                        color: AppColor.darkBlue,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.r),
                             topRight: Radius.circular(10.r))),
@@ -71,9 +71,9 @@ class AppLoading {
 //divider-------------------------------------------------------------------
 
                         showButtom
-                            ? const Divider(
+                            ?  Divider(
                                 thickness: 1,
-                                color: AppColor.appBarColor,
+                                color: AppColor.textFieldBorderColor,
                               )
                             : const SizedBox(),
                         SizedBox(height: 10.h),
@@ -93,7 +93,7 @@ class AppLoading {
                                           child: AppButtons(
                                         onPressed: yesFunction,
                                         text: 'نعم',
-                                        bagColor: AppColor.appBarColor,
+                                        bagColor: AppColor.darkBlue,
                                       )),
 
                                       SizedBox(width: 20.w),
@@ -102,7 +102,7 @@ class AppLoading {
                                         child: AppButtons(
                                           onPressed: noFunction,
                                           text: 'لا',
-                                          bagColor: AppColor.appBarColor,
+                                          bagColor: AppColor.darkBlue,
                                         ),
                                       )
                                     ]),
@@ -116,9 +116,9 @@ class AppLoading {
                     height: 200.h,
                     child: Align(
                       alignment: Alignment.topCenter,
-                      child: Lottie.asset(
-                        "assets/Lottie/lode.json",
-                        fit: BoxFit.contain,
+                      child: CircularProgressIndicator(
+                        //"assets/Lottie/lode.json",
+                        //fit: BoxFit.contain,
                       ),
                     ),
                   ),
@@ -134,7 +134,7 @@ class AppLoading {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(Icons.clear,
+                            icon: Icon(Icons.exit_to_app,
                                 color: AppColor.black, size: 35.sp)),
                       ),
                     )

@@ -15,7 +15,7 @@ import 'package:red_crescent/Widget/AppWidget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:red_crescent/Widget/AppClipperDarkBlueContainer.dart';
-import '../../BackEnd/Database/DatabaseMethods.dart';
+import '../../Database/DatabaseMethods.dart';
 import '../../Widget/AppLoading.dart';
 import '../../Widget/AppSvg.dart';
 
