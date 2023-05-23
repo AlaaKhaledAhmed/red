@@ -27,10 +27,8 @@ class AppValidator {
   }
 
   //valid email=============================================================
-  static String? validatorEmail(email, type) {
-    var match = RegExp(r'(^|\D)\d{6,6}($|\D)').hasMatch(email.trim());
-    print('match :$match');
-    print('type :$type');
+  static String? validatorEmail(email) {
+
     if ( email.isEmpty) {
       return 'حقل اجباري';
     }

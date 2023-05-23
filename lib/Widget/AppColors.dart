@@ -6,7 +6,7 @@ class AppColor {
   static Color green = const Color(0xff22EECC);
   static Color black = Colors.black;
   static Color white = Colors.white;
-  static Color labelTextFieldsColor = Color(0xff0C0B0BB2);
+  static Color labelTextFieldsColor = textFieldBorderColor;
   static const Color appBarColor = Color(0xFF696867);
   static Color mainTextFieldsColor = Colors.black;
   static Color white30 = Colors.white30;

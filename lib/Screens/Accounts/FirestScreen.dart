@@ -3,7 +3,7 @@ import 'package:red_crescent/Widget/AppSvg.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widget/AppRoutes.dart';
-import 'Login.dart';
+import 'SingUp.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _FirstScreenState extends State<FirstScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 5),() {
-      AppRoutes.pushReplacementTo(context, const Login());
+      AppRoutes.pushReplacementTo(context,  SingUp());
     },);
   }
 
