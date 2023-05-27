@@ -51,7 +51,6 @@ class AppWidget {
     }));
   }
 
-
   //container decoration===============================================================
   static BoxDecoration decoration({double? radius, Color? color}) {
     return BoxDecoration(
@@ -65,8 +64,18 @@ class AppWidget {
   }
 
   //==========================================================
-  static String? getUid()  {
-    String? uid=FirebaseAuth.instance.currentUser?.uid;
+  static String? getUid() {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
     return uid;
+  }
+//==============================================================
+  static String getStutus(int status) {
+    if (status == 1) {
+      return "قيد الانتظار";
+    } else if (status == 2) {
+      return "مقبول";
+    } else {
+      return "مرفوض";
+    }
   }
 }

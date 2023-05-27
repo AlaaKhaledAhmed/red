@@ -13,4 +13,6 @@ class AppMessage {
   static String erroe = "حدث خطا ما";
   static String locationNotEnable = "عليك تفعيل الموقع الجغرافي اولا";
   static String denied = "لا يمكنك حجز موعد ، تم رفض تشغيل الموقع الجغرافي";
+  static String noData="لاتوجد بيانات لعرضها";
+
 }

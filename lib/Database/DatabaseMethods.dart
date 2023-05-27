@@ -118,13 +118,16 @@ class Database {
     locationData = await location.getLocation();
     return locationData;
   }
+
   //open user location=========================================================
-  void showUserLocation(
+  static void showUserLocation(
       {required double latitude, required double longitude}) async {
     var url =
         "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
     try {
-      launch(url.toString());
-    } catch (e) {}
+      await launch(url.toString());
+    } catch (e) {
+      print('Error in show user location: ${e.toString()}');
+    }
   }
 }

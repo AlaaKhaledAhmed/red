@@ -1,6 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppSize{
-
+static double iconSize=33.sp;
  static double textFieldsFontSize=17.sp;
  static double textFieldsBorderWidth=1.5.sp;
  static double textFieldsBorderRadius=12.sp;
