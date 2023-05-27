@@ -181,54 +181,44 @@ class _HealthGuidelinesState extends State<HealthGuidelines> {
                                         ),
                                       )
                                     : index == 3
-                                        ? RichText(
+                                        ? 
+                                        RichText(
                                             text: const TextSpan(
                                               children: [
                                                 TextSpan(
+                                                   style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                     text:
-                                                        'الوقوف خلف الشخص المصاب لتحقيق التوازن' +
+                                                        'حماية الشخص المصاب من الضرر' +
                                                             "\n"),
                                                 TextSpan(
                                                   text:
-                                                      'وضع إحدى القدمين أمام الاخري قليلا لتحقيق التوازن ' +
+                                                      'انزع المجوهرات واألحزمة وغيرها ، خاصة حول المناطق المحترقة على سبيل المثال الرقبة' +
                                                           "\n",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
                                                 TextSpan(
+                                                   style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                     text:
-                                                        'لف الذراعين حول خصر الشخص المصاب ' +
+                                                        ' أخذ مسكن الالم إذا لزم الامر وذلك لتخفيف الالم' +
                                                             "\n"),
                                                 TextSpan(
                                                   text:
-                                                      'إمالة الشخص المصاب إلى الامام قليلا' +
+                                                      'تغطية منطقة الحرق باستخدام ضمادة رطبة أو قطعة قماش نظيفة باردة     ' +
                                                           "\n",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
+                                              
                                                 TextSpan(
                                                   text:
-                                                      'عمل قبضة باليد األخرى ثم وضعها فوق منطقة السرة' +
-                                                          "\n",
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      'مسك القبضة باليد األخرى ثم توجيه ضغطة بقوة على البطن بسرعة نحو األعلى' +
-                                                          "\n",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      'القيام بمعدل 6 إلى 10 ضغطات بطنية حتى يزول الجسم العالق' +
-                                                          "\n",
-                                                ),
-                                                TextSpan(
-                                                  text:
-                                                      'أما في حال كان الشخص المصاب قد فقد وعيه فقم باإلنعاش' +
+                                                      'تغطية الفقاعات المفتوحة بضمادة جافة ومعقمة ' +
                                                           "\n",
                                                   style: TextStyle(
                                                       fontWeight:
