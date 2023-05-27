@@ -1,12 +1,12 @@
 import 'dart:math';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:red_crescent/Widget/AppConstants.dart';
 import 'package:red_crescent/Widget/AppWidget.dart';
+import 'package:location/location.dart';
 
 class Database {
-
   static Future<String> singUp({
     required String name,
     required String email,
@@ -26,7 +26,6 @@ class Database {
           'email': email,
           'address': address,
           'type': "pation",
-         
         });
         return 'done';
       }
@@ -65,5 +64,67 @@ class Database {
       return 'error';
     }
     return 'error';
+  }
+
+//====================================================
+  static Future<String> sendRequest({
+    required String userId,
+    required String userStatus,
+    required double lang,
+    required double lat,
+  }) async {
+    try {
+      AppConstants.requestCollection.add({
+        'userId': userId,
+        'userStatus': userStatus,
+        'status': AppConstants.statusIsSend,
+        'lang': lang,
+        'lat': lat,
+      });
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
+
+  //=======================get Current Location======================================
+  static Future getCurrentLocation() async {
+    Location location = Location();
+
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return "locationNotEnable";
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return 'PERMISSION_DENIED';
+      }
+    }
+    location.changeSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 0,
+      interval: 100000,
+    );
+    locationData = await location.getLocation();
+    return locationData;
+  }
+  //open user location=========================================================
+  void showUserLocation(
+      {required double latitude, required double longitude}) async {
+    var url =
+        "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
+    try {
+      launch(url.toString());
+    } catch (e) {}
   }
 }

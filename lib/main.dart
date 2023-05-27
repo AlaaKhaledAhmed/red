@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:red_crescent/Screens/Pataion/PationNav.dart';
 import 'Screens/Accounts/FirestScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,7 +39,7 @@ class _MyAppState extends State<MyApp> {
               child: widget!,
             );
           },
-          home: FirstScreen(),
+          home:PationNav(),
         );
       },
     );

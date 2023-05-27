@@ -22,7 +22,7 @@ class AppWidget {
 
   //==========================================================
   static Widget hSpace(double space) {
-    return SizedBox(height: space);
+    return SizedBox(height: space.h);
   }
 
   //==========================================================

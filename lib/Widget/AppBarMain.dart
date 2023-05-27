@@ -25,8 +25,8 @@ class AppBarMain extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
     
       centerTitle: true,
-      elevation: elevation ?? 2,
-      backgroundColor: background ?? AppColor.appBarColor,
+      elevation: elevation ?? 1,
+      backgroundColor: background ?? AppColor.blue,
       title: AppText(
         fontSize: AppSize.titleTextSize,
         text: title,
@@ -35,7 +35,7 @@ class AppBarMain extends StatelessWidget with PreferredSizeWidget {
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(radius ?? 100.r),
+          bottom: Radius.circular(radius ?? 10.r),
         ),
       ),
     );
@@ -43,5 +43,5 @@ class AppBarMain extends StatelessWidget with PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(high ?? 85.r);
+  Size get preferredSize => Size.fromHeight(high ?? 80.r);
 }
