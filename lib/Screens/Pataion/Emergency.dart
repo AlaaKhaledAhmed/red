@@ -66,6 +66,7 @@ class _EmergencyState extends State<Emergency> {
                   child: AppButtons(
                     text: "ارسال",
                     onPressed: () async {
+                      print('currentLocation)'+currentLocation.toString());
                       AppLoading.show(context, 'lode', 'lode');
                       if (currentLocation.toString() == "locationNotEnable") {
                         Navigator.pop(context);

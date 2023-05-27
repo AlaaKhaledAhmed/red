@@ -52,7 +52,7 @@ class _RequestState extends State<Request> {
                     decoration: AppWidget.decoration(radius: 10.r),
                     width: AppWidget.getWidth(context),
                     child: StreamBuilder(
-                        stream: AppConstants.requestCollection.snapshots(),
+                        stream: AppConstants.requestCollection.where('userId',isEqualTo: userId!).snapshots(),
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.hasError) {
                             return const Center(
