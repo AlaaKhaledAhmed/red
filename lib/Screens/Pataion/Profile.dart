@@ -71,6 +71,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 AppWidget.hSpace(30.h),
+
                 ///name=======================================
                 AppTextFields(
                   controller: nameController,
@@ -93,34 +94,39 @@ class _ProfileState extends State<Profile> {
                   labelText: 'العنوان',
                   validator: (v) => AppValidator.validatorEmpty(v),
                 ),
-                AppWidget.hSpace(AppSize.hSpace),
+                AppWidget.hSpace(20.h),
+                AppButtons(
+                  text: 'تحديث المعلومات',
+                  onPressed: () {
+                    if (updateKey.currentState!.validate()) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      AppLoading.show(context, '', 'lode');
+                      Database.updateProfile(
+                        name: nameController.text,
+                        address: addressController.text,
+                        phone: phoneController.text,
+                        docId: docId!,
+                      ).then((String v) {
+                        print('================$v');
+                        if (v == 'done') {
+                          Navigator.pop(context);
+                          AppLoading.show(context, AppMessage.updateData,
+                              AppMessage.doneData);
+                        } else {
+                          Navigator.pop(context);
+                          AppLoading.show(
+                              context, AppMessage.updateData, AppMessage.erroe);
+                        }
+                      });
+                    }
+                  },
+                  // width: 270.w,
+                  bagColor: AppColor.darkBlue,
+                ),
               ],
             ),
           ),
         )));
-  }
-
-//update buttom----------------------------------------------------------------
-  Future<void> updateProfile() async {
-    if (updateKey.currentState!.validate()) {
-      FocusManager.instance.primaryFocus?.unfocus();
-      AppLoading.show(context, '', 'lode');
-      Database.updateProfile(
-        name: nameController.text,
-        address: addressController.text,
-        phone: phoneController.text,
-        docId: docId!,
-      ).then((String v) {
-        print('================$v');
-        if (v == 'done') {
-          Navigator.pop(context);
-          AppLoading.show(context, AppMessage.updateData, AppMessage.doneData);
-        } else {
-          Navigator.pop(context);
-          AppLoading.show(context, AppMessage.updateData, AppMessage.erroe);
-        }
-      });
-    }
   }
 
 //========================================================================

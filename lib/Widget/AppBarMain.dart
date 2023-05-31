@@ -10,6 +10,7 @@ class AppBarMain extends StatelessWidget with PreferredSizeWidget {
   final double? elevation;
   final double? radius;
   final double? high;
+  final Widget?leading;
   const AppBarMain(
       {Key? key,
       required this.title,
@@ -17,13 +18,14 @@ class AppBarMain extends StatelessWidget with PreferredSizeWidget {
       this.elevation,
       this.radius,
       this.high,
+      this.leading,
       this.textColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-    
+    leading: leading,
       centerTitle: true,
       elevation: elevation ?? 1,
       backgroundColor: background ?? AppColor.blue,

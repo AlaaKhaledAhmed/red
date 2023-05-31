@@ -25,10 +25,10 @@ class _PatientNavState extends State<PatientNav> {
   }
 
   List<Widget> page = [
-    const Request(),
     const Emergency(),
-    const HealthGuidelines(),
     const MedicalRecord(),
+    const Request(),
+    const HealthGuidelines(),
     const Profile(),
   ];
   @override
@@ -52,20 +52,20 @@ class _PatientNavState extends State<PatientNav> {
           onTap: onTabTapped,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.remove_from_queue_outlined),
-              label: "تتبع الطلب",
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.emergency_rounded),
               label: "الطوارئ",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.live_help),
-              label: "مساعدة",
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.monitor_heart),
               label: "السجل الطبي",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.remove_from_queue_outlined),
+              label: "تتبع الطلب",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.live_help),
+              label: "مساعدة",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.manage_accounts),

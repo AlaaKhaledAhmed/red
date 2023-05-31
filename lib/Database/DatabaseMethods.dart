@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:red_crescent/Widget/AppConstants.dart';
 import 'package:red_crescent/Widget/AppWidget.dart';
 import 'package:location/location.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Database {
   static Future<String> singUp({
@@ -88,7 +89,8 @@ class Database {
         'requestFrom': requestFrom,
         'hospitalId': hospitalId,
         'medicalRecordFile': medicalRecordFile,
-        'to': 'redCrescent'
+        'to': 'redCrescent',
+        'createdOn': FieldValue.serverTimestamp(),
 
       });
       return 'done';

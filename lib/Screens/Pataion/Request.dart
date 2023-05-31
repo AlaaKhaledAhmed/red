@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:red_crescent/Database/DatabaseMethods.dart';
+import 'package:red_crescent/Screens/Accounts/Login.dart';
 import 'package:red_crescent/Widget/AppBarMain.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:red_crescent/Widget/AppConstants.dart';
 import 'package:red_crescent/Widget/AppMessage.dart';
+import 'package:red_crescent/Widget/AppRoutes.dart';
 import 'package:red_crescent/Widget/AppSvg.dart';
 
 import '../../Widget/AppColors.dart';
@@ -31,8 +33,14 @@ class _RequestState extends State<Request> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const AppBarMain(
+        appBar: AppBarMain(
           title: "تتبع الطلب",
+          leading: IconButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                AppRoutes.pushReplacementTo(context, Login());
+              },
+              icon: const Icon(Icons.logout_rounded)),
         ),
         body: SizedBox(
           // color: Colors.green,
@@ -52,7 +60,10 @@ class _RequestState extends State<Request> {
                     decoration: AppWidget.decoration(radius: 10.r),
                     width: AppWidget.getWidth(context),
                     child: StreamBuilder(
-                        stream: AppConstants.requestCollection.where('userId',isEqualTo: userId!).snapshots(),
+                        stream: AppConstants.requestCollection
+                            .where('userId', isEqualTo: userId!)
+                             .orderBy('createdOn', descending: true)
+                            .snapshots(),
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.hasError) {
                             return const Center(
@@ -110,7 +121,7 @@ class _RequestState extends State<Request> {
                         fontSize: AppSize.subTextSize + 2,
                       ),
                       trailing: IconButton(
-                          onPressed: () async{
+                          onPressed: () async {
                             Database.showUserLocation(
                                 latitude: data['lat'], longitude: data['lang']);
                           },
