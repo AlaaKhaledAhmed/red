@@ -189,5 +189,19 @@ class Database {
     }
   }
 
-  static void deleteData({CollectionReference<Object?> ?tableName, docId}) {}
+  //=======================Delete  method======================================
+  static Future<String> delete({
+    required String docId,
+    required String collection,
+  }) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(collection)
+          .doc(docId)
+          .delete();
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+   }
 }
