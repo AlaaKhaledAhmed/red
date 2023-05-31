@@ -36,7 +36,7 @@ class _EmergencyState extends State<Emergency> {
       },
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +66,7 @@ class _EmergencyState extends State<Emergency> {
                   child: AppButtons(
                     text: "ارسال",
                     onPressed: () async {
-                      print('currentLocation)'+currentLocation.toString());
+                      print('currentLocation)' + currentLocation.toString());
                       AppLoading.show(context, 'lode', 'lode');
                       if (currentLocation.toString() == "locationNotEnable") {
                         Navigator.pop(context);
@@ -83,6 +83,9 @@ class _EmergencyState extends State<Emergency> {
                           userStatus: AppConstants.list[tab!],
                           lang: currentLocation!.longitude!,
                           lat: currentLocation!.latitude!,
+                          requestFrom: AppConstants.requestFromPatient,
+                          hospitalId: '',
+                          medicalRecordFile: '',
                         ).then((v) {
                           print('================$v');
                           if (v == 'done') {

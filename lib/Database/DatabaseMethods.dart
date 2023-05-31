@@ -25,7 +25,8 @@ class Database {
           'password': password,
           'email': email,
           'address': address,
-          'type': "pation",
+          'type': "patient",
+          'phone': phone
         });
         return 'done';
       }
@@ -67,12 +68,14 @@ class Database {
   }
 
 //====================================================
-  static Future<String> sendRequest({
-    required String userId,
-    required String userStatus,
-    required double lang,
-    required double lat,
-  }) async {
+  static Future<String> sendRequest(
+      {required String userId,
+      required String userStatus,
+      required double lang,
+      required double lat,
+      required int requestFrom,
+      required String hospitalId,
+      required String medicalRecordFile}) async {
     try {
       AppConstants.requestCollection.add({
         'userId': userId,
@@ -80,6 +83,10 @@ class Database {
         'status': AppConstants.statusIsSend,
         'lang': lang,
         'lat': lat,
+        'requestFrom': requestFrom,
+        'hospitalId': hospitalId,
+        'medicalRecordFile': medicalRecordFile,
+        'to': 'redCrescent'
       });
       return 'done';
     } catch (e) {
@@ -129,5 +136,30 @@ class Database {
     } catch (e) {
       print('Error in show user location: ${e.toString()}');
     }
+  }
+//update profile======================================================================
+  static Future<String> updateProfile(
+      {required String name,
+      required String address,
+      required String phone,
+      required String docId}) async {
+    try {
+      await AppConstants.userCollection.doc(docId).update({
+        'name': name,
+        'address': address,
+        'phone': phone
+      });
+      return 'done';
+    } on FirebaseException catch (e) {
+      if (e.code == 'weak-password') {
+        return 'weak-password';
+      }
+      if (e.code == 'email-already-in-use') {
+        return 'email-already-in-use';
+      }
+    } catch (e) {
+      return e.toString();
+    }
+    return 'error';
   }
 }

@@ -5,6 +5,9 @@ class AppConstants {
   static int statusIsSend = 1;
   static int statusIsAccept = 2;
   static int statusIsReject = 3;
+  static int requestFromRed=1;
+  static int requestFromPatient=2;
+  static int requestFromHospital=3;
   static CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
   static CollectionReference requestCollection =

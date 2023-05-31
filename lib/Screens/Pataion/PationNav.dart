@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:red_crescent/Screens/Pataion/Emergency.dart';
+import 'package:red_crescent/Screens/Pataion/Profile.dart';
 import 'package:red_crescent/Widget/AppColors.dart';
 
 import 'HealthGuidelines.dart';
+import 'MedicalRecord.dart';
 import 'Request.dart';
 
 class PatientNav extends StatefulWidget {
@@ -26,6 +28,8 @@ class _PatientNavState extends State<PatientNav> {
     const Request(),
     const Emergency(),
     const HealthGuidelines(),
+    const MedicalRecord(),
+    const Profile(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -58,6 +62,14 @@ class _PatientNavState extends State<PatientNav> {
             BottomNavigationBarItem(
               icon: Icon(Icons.live_help),
               label: "مساعدة",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.monitor_heart),
+              label: "السجل الطبي",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.manage_accounts),
+              label: "حسابي",
             ),
           ],
         ),

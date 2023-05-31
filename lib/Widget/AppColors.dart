@@ -15,6 +15,7 @@ class AppColor {
   static Color textFieldBorderColor = const Color(0xffaca9a9);
   static Color buttonsColor = Colors.brown.shade600;
   static Color grey600 = Colors.grey.shade600;
+  static Color grey100 = Colors.grey.shade100;
   static Color buttonsTextColor = white;
 
 }

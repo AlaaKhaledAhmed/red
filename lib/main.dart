@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
               child: widget!,
             );
           },
-          home: Login(),
+          home: PatientNav(),
         );
       },
     );

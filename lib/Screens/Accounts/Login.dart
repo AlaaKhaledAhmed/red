@@ -204,7 +204,7 @@ class _LoginState extends State<Login> {
                                     Navigator.pop(context);
                                     value.docs.forEach((element) {
                                       print('respoms is: $v');
-                                      if (element.data()['type'] == 'pation') {
+                                      if (element.data()['type'] == 'patient') {
                                         AppRoutes.pushReplacementTo(
                                             context, const PatientNav());
                                       } else if (element.data()['type'] ==
