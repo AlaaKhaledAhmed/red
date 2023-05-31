@@ -153,9 +153,11 @@ class _EmergencyState extends State<Emergency> {
         .get()
         .then((value) {
       value.docs.forEach((element) {
-        setState(() {
-          phone = element["phone"];
-        });
+        if (mounted) {
+          setState(() {
+            phone = element["phone"];
+          });
+        }
       });
     });
   }

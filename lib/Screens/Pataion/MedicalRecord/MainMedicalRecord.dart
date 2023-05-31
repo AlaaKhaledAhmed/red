@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:red_crescent/Database/DatabaseMethods.dart';
-import 'package:red_crescent/Screens/Accounts/Login.dart';
-import 'package:red_crescent/Widget/AppBarMain.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:red_crescent/Widget/AppConstants.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:red_crescent/Widget/AppColors.dart';
 import 'package:red_crescent/Widget/AppMessage.dart';
 import 'package:red_crescent/Widget/AppRoutes.dart';
-import 'package:red_crescent/Widget/AppSvg.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../Widget/AppColors.dart';
-import '../../Widget/AppIcons.dart';
-import '../../Widget/AppSize.dart';
-import '../../Widget/AppText.dart';
-import '../../Widget/AppWidget.dart';
+import '../../../../Widget/AppBarMain.dart';
+import '../../../../Widget/AppButtons.dart';
+import '../../../../Widget/AppConstants.dart';
+import '../../../../Widget/AppDropList.dart';
+import '../../../../Widget/AppLoading.dart';
+import '../../../../Widget/AppSize.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../../../../Widget/AppTextFields.dart';
+import '../../../../Widget/AppValidator.dart';
+import '../../../../Widget/AppWidget.dart';
+import '../../../Database/DatabaseMethods.dart';
+import '../../../Widget/AppSvg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../Widget/AppText.dart';
+import 'AddMedicalRecord.dart';
 
-class Request extends StatefulWidget {
-  const Request({Key? key}) : super(key: key);
+class MainMedicalRecord extends StatefulWidget {
+  const MainMedicalRecord();
 
   @override
-  State<Request> createState() => _RequestState();
+  State<MainMedicalRecord> createState() => _MainMedicalRecordState();
 }
 
-class _RequestState extends State<Request> {
+class _MainMedicalRecordState extends State<MainMedicalRecord> {
   String? userId;
   @override
   void initState() {
@@ -34,13 +38,13 @@ class _RequestState extends State<Request> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarMain(
-          title: "تتبع الطلب",
+          title: "السجل الطبي",
           leading: IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                AppRoutes.pushReplacementTo(context, Login());
-              },
-              icon: const Icon(Icons.logout_rounded)),
+              onPressed: () => AppRoutes.pushTo(context, AddMedicalRecord()),
+              icon: Icon(
+                Icons.add_chart,
+                size: 35.sp,
+              )),
         ),
         body: SizedBox(
           // color: Colors.green,
@@ -60,7 +64,7 @@ class _RequestState extends State<Request> {
                     decoration: AppWidget.decoration(radius: 10.r),
                     width: AppWidget.getWidth(context),
                     child: StreamBuilder(
-                        stream: AppConstants.requestCollection
+                        stream: AppConstants.medicalRecordCollection
                             .where('userId', isEqualTo: userId!)
                             .orderBy('createdOn', descending: true)
                             .snapshots(),
@@ -70,7 +74,23 @@ class _RequestState extends State<Request> {
                                 child: Text("Error check internet!"));
                           }
                           if (snapshot.hasData) {
-                            return body(snapshot);
+                            return Column(
+                              children: [
+                                SizedBox(height: 20.h),
+//show medical record======================================================
+                                InkWell(
+                                  onTap: null, // () => showMidicalRecord(),
+                                  child: CircleAvatar(
+                                    radius: 60.r,
+                                    backgroundColor: AppColor.grey100,
+                                    child: Icon(Icons.receipt_long_sharp,
+                                        size: 50.r),
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                body(snapshot),
+                              ],
+                            );
                           }
 
                           return const Center(
@@ -112,7 +132,7 @@ class _RequestState extends State<Request> {
                           title: Padding(
                             padding: EdgeInsets.only(top: 30.h),
                             child: AppText(
-                              text: 'حالة الطوارئ : ${data['userStatus']}',
+                              text: 'اسم المرض: ${data['disease']}',
                               fontSize: AppSize.title2TextSize,
                             ),
                           ),
@@ -122,26 +142,26 @@ class _RequestState extends State<Request> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AppText(
-                                text:
-                                    'حالة الطلب: ${AppWidget.getStutus(data['status'])}',
+                                text: 'الحساسة: ${data['sensitive']}',
                                 fontSize: AppSize.subTextSize + 2,
                               ),
 
                               ///phone and call
                               AppText(
-                                text: 'رقم الاتصال: ${data['phone']}',
+                                text: 'فصيلة الدم: ${data['bloodType']}',
                                 fontSize: AppSize.subTextSize + 2,
                               ),
                             ],
                           ),
                           trailing: IconButton(
                               onPressed: () async {
-                                Database.showUserLocation(
-                                    latitude: data['lat'],
-                                    longitude: data['lang']);
+                                Database.deleteData(
+                                    tableName:
+                                        AppConstants.medicalRecordCollection,
+                                    docId: snapshot.data.docs[i].id);
                               },
                               icon: Icon(
-                                Icons.location_on_sharp,
+                                Icons.delete,
                                 size: AppSize.iconSize,
                                 color: AppColor.green,
                               )),
@@ -152,12 +172,9 @@ class _RequestState extends State<Request> {
                               AppWidget.decoration(color: AppColor.green),
                           width: double.infinity,
                           child: IconButton(
-                              onPressed: () async {
-                                String url = 'tel:' + data['phone'];
-                                await launch(url);
-                              },
+                              onPressed: () async {},
                               icon: Icon(
-                                Icons.phone,
+                                Icons.edit,
                                 size: AppSize.iconSize,
                                 color: AppColor.white,
                               )),

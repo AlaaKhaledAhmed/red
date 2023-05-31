@@ -12,10 +12,12 @@ class AppTextFields extends StatelessWidget {
   final TextEditingController? controller;
   final String? labelText;
   final FontWeight? fontWeight;
+  final FocusNode? focusNode;
   final sufficIcon;
   const AppTextFields({
     Key? key,
     this.sufficIcon,
+    this.focusNode,
     required this.validator,
     this.inputFormatters,
     this.keyboardType,
@@ -34,7 +36,7 @@ class AppTextFields extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       autofocus: false,
       inputFormatters: inputFormatters,
-      
+      focusNode: focusNode,
       keyboardType: keyboardType,
       controller: controller,
       style: TextStyle(

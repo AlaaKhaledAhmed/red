@@ -4,7 +4,8 @@ import 'package:red_crescent/Screens/Pataion/Profile.dart';
 import 'package:red_crescent/Widget/AppColors.dart';
 
 import 'HealthGuidelines.dart';
-import 'MedicalRecord.dart';
+import 'MedicalRecord/AddMedicalRecord.dart';
+import 'MedicalRecord/MainMedicalRecord.dart';
 import 'Request.dart';
 
 class PatientNav extends StatefulWidget {
@@ -15,7 +16,7 @@ class PatientNav extends StatefulWidget {
 }
 
 class _PatientNavState extends State<PatientNav> {
-  int selectedIndex = 0;
+  int selectedIndex = 2;
   PageController? pageController;
 
   @override
@@ -26,7 +27,7 @@ class _PatientNavState extends State<PatientNav> {
 
   List<Widget> page = [
     const Emergency(),
-    const MedicalRecord(),
+    const MainMedicalRecord(),
     const Request(),
     const HealthGuidelines(),
     const Profile(),

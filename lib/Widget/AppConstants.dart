@@ -12,6 +12,8 @@ class AppConstants {
       FirebaseFirestore.instance.collection('users');
   static CollectionReference requestCollection =
       FirebaseFirestore.instance.collection('request');
+        static CollectionReference medicalRecordCollection =
+      FirebaseFirestore.instance.collection('medicalRecord');
   static String c1="";
   
   

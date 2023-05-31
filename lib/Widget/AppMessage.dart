@@ -14,5 +14,7 @@ class AppMessage {
   static String locationNotEnable = "عليك تفعيل الموقع الجغرافي اولا";
   static String denied = "لا يمكنك حجز موعد ، تم رفض تشغيل الموقع الجغرافي";
   static String noData="لاتوجد بيانات لعرضها";
+    static String medicalRecord="السجل الطبي";
+    
 
 }

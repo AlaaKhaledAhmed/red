@@ -83,7 +83,7 @@ class Database {
         'userId': userId,
         'userStatus': userStatus,
         'status': AppConstants.statusIsSend,
-        'phone':phone,
+        'phone': phone,
         'lang': lang,
         'lat': lat,
         'requestFrom': requestFrom,
@@ -91,7 +91,6 @@ class Database {
         'medicalRecordFile': medicalRecordFile,
         'to': 'redCrescent',
         'createdOn': FieldValue.serverTimestamp(),
-
       });
       return 'done';
     } catch (e) {
@@ -166,4 +165,29 @@ class Database {
     }
     return 'error';
   }
+
+  //====================================================
+  static Future<String> addMidicalRecord({
+    required String userId,
+    required String hospitalId,
+    required String disease,
+    required String sensitive,
+    required String bloodType,
+  }) async {
+    try {
+      AppConstants.medicalRecordCollection.add({
+        'userId': userId,
+        'hospitalId': hospitalId,
+        'disease': disease,
+        'sensitive': sensitive,
+        'bloodType': bloodType,
+        'createdOn': FieldValue.serverTimestamp(),
+      });
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
+
+  static void deleteData({CollectionReference<Object?> ?tableName, docId}) {}
 }
