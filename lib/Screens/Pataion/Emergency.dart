@@ -35,7 +35,7 @@ class _EmergencyState extends State<Emergency> {
       Duration.zero,
       () async {
         currentLocation = await Database.getCurrentLocation();
-         await getData();
+        await getPhone();
       },
     );
   }
@@ -89,7 +89,7 @@ class _EmergencyState extends State<Emergency> {
                           requestFrom: AppConstants.requestFromPatient,
                           hospitalId: '',
                           medicalRecordFile: '',
-                          phone:phone!,
+                          phone: phone!,
                         ).then((v) {
                           print('================$v');
                           if (v == 'done') {
@@ -145,8 +145,9 @@ class _EmergencyState extends State<Emergency> {
           );
         });
   }
-  //======================================================
-  Future<void> getData() async {
+
+//================================================================
+  Future<void> getPhone() async {
     await AppConstants.userCollection
         .where("userId", isEqualTo: userId!)
         .get()
@@ -154,7 +155,6 @@ class _EmergencyState extends State<Emergency> {
       value.docs.forEach((element) {
         setState(() {
           phone = element["phone"];
-
         });
       });
     });
