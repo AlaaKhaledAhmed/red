@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:red_crescent/Screens/Accounts/Login.dart';
 import 'package:red_crescent/Screens/Pataion/PationNav.dart';
 import 'Screens/Accounts/FirestScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +14,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp();
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
               child: widget!,
             );
           },
-          home:PationNav(),
+          home: Login(),
         );
       },
     );

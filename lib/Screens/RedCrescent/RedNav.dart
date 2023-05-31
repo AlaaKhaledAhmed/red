@@ -12,16 +12,15 @@ import '../../Widget/AppSize.dart';
 import '../../Widget/AppText.dart';
 import '../../Widget/AppWidget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-class HospitalNav extends StatefulWidget {
-  const HospitalNav({Key? key}) : super(key: key);
 
-
+class RedNav extends StatefulWidget {
+  const RedNav({Key? key}) : super(key: key);
 
   @override
-  State<HospitalNav> createState() => _HospitalNavState();
+  State<RedNav> createState() => _RedNavState();
 }
 
-class _HospitalNavState extends State<HospitalNav> {
+class _RedNavState extends State<RedNav> {
   String? userId;
   @override
   void initState() {
@@ -53,7 +52,9 @@ class _HospitalNavState extends State<HospitalNav> {
                     decoration: AppWidget.decoration(radius: 10.r),
                     width: AppWidget.getWidth(context),
                     child: StreamBuilder(
-                        stream: AppConstants.requestCollection.where('userId',isEqualTo: userId!).snapshots(),
+                        stream: AppConstants.requestCollection
+                            .where('userId', isEqualTo: userId!)
+                            .snapshots(),
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.hasError) {
                             return const Center(
@@ -65,8 +66,8 @@ class _HospitalNavState extends State<HospitalNav> {
 
                           return const Center(
                               child: CircularProgressIndicator(
-                                color: AppColor.appBarColor,
-                              ));
+                            color: AppColor.appBarColor,
+                          ));
                         }),
                   )
                 ],
@@ -80,56 +81,56 @@ class _HospitalNavState extends State<HospitalNav> {
   Widget body(snapshot) {
     return snapshot.data.docs.isNotEmpty
         ? ListView.builder(
-        shrinkWrap: true,
-        itemCount: snapshot.data.docs.length,
-        itemBuilder: (context, i) {
-          var data = snapshot.data.docs[i].data();
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 5.h),
-            child: SizedBox(
-              height: 130.h,
-              width: AppWidget.getWidth(context),
-              child: Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  //set border radius more than 50% of height and width to make circle
-                ),
+            shrinkWrap: true,
+            itemCount: snapshot.data.docs.length,
+            itemBuilder: (context, i) {
+              var data = snapshot.data.docs[i].data();
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.h),
+                child: SizedBox(
+                  height: 130.h,
+                  width: AppWidget.getWidth(context),
+                  child: Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                      //set border radius more than 50% of height and width to make circle
+                    ),
 //user status=================================================================
-                child: ListTile(
-                  title: Padding(
-                    padding: EdgeInsets.only(top: 30.h),
-                    child: AppText(
-                      text: 'حالة الطوارئ : ${data['userStatus']}',
-                      fontSize: AppSize.title2TextSize,
+                    child: ListTile(
+                      title: Padding(
+                        padding: EdgeInsets.only(top: 30.h),
+                        child: AppText(
+                          text: 'حالة الطوارئ : ${data['userStatus']}',
+                          fontSize: AppSize.title2TextSize,
+                        ),
+                      ),
+//status=================================================================
+                      subtitle: AppText(
+                        text:
+                            'حالة الطلب: ${AppWidget.getStutus(data['status'])}',
+                        fontSize: AppSize.subTextSize + 2,
+                      ),
+                      trailing: IconButton(
+                          onPressed: () async {
+                            Database.showUserLocation(
+                                latitude: data['lat'], longitude: data['lang']);
+                          },
+                          icon: Icon(
+                            Icons.location_on_sharp,
+                            size: AppSize.iconSize,
+                            color: AppColor.green,
+                          )),
                     ),
                   ),
-//status=================================================================
-                  subtitle: AppText(
-                    text:
-                    'حالة الطلب: ${AppWidget.getStutus(data['status'])}',
-                    fontSize: AppSize.subTextSize + 2,
-                  ),
-                  trailing: IconButton(
-                      onPressed: () async{
-                        Database.showUserLocation(
-                            latitude: data['lat'], longitude: data['lang']);
-                      },
-                      icon: Icon(
-                        Icons.location_on_sharp,
-                        size: AppSize.iconSize,
-                        color: AppColor.green,
-                      )),
                 ),
-              ),
-            ),
-          );
-        })
+              );
+            })
         : Center(
-      child: AppText(
-          text: AppMessage.noData,
-          fontSize: AppSize.titleTextSize,
-          fontWeight: FontWeight.bold),
-    );
+            child: AppText(
+                text: AppMessage.noData,
+                fontSize: AppSize.titleTextSize,
+                fontWeight: FontWeight.bold),
+          );
   }
 }

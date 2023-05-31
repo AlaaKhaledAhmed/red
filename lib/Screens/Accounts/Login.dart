@@ -19,7 +19,9 @@ import 'package:red_crescent/Widget/AppClipperDarkBlueContainer.dart';
 import '../../Database/DatabaseMethods.dart';
 import '../../Widget/AppLoading.dart';
 import '../../Widget/AppSvg.dart';
+import '../Hospital/HospitalNav.dart';
 import '../Pataion/PationNav.dart';
+import '../RedCrescent/RedNav.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -203,14 +205,16 @@ class _LoginState extends State<Login> {
                                     value.docs.forEach((element) {
                                       print('respoms is: $v');
                                       if (element.data()['type'] == 'pation') {
-
-                                        AppRoutes.pushReplacementTo(context, const PationNav());
+                                        AppRoutes.pushReplacementTo(
+                                            context, const PatientNav());
                                       } else if (element.data()['type'] ==
                                           'hospital') {
-                                            AppRoutes.pushReplacementTo(context, const PationNav());
-                                      
-                                      } else {
-                                        //nav
+                                        AppRoutes.pushReplacementTo(
+                                            context, const HospitalNav());
+                                      } else if (element.data()['type'] ==
+                                          'redCrescent') {
+                                        AppRoutes.pushReplacementTo(
+                                            context, const RedNav());
                                       }
                                     });
                                   });

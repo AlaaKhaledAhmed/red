@@ -5,14 +5,14 @@ import 'package:red_crescent/Widget/AppColors.dart';
 import 'HealthGuidelines.dart';
 import 'Request.dart';
 
-class PationNav extends StatefulWidget {
-  const PationNav();
+class PatientNav extends StatefulWidget {
+  const PatientNav();
 
   @override
-  State<PationNav> createState() => _PationNavState();
+  State<PatientNav> createState() => _PatientNavState();
 }
 
-class _PationNavState extends State<PationNav> {
+class _PatientNavState extends State<PatientNav> {
   int selectedIndex = 0;
   PageController? pageController;
 
