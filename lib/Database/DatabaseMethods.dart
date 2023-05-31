@@ -75,18 +75,21 @@ class Database {
       required double lat,
       required int requestFrom,
       required String hospitalId,
-      required String medicalRecordFile}) async {
+      required String medicalRecordFile,
+      required String phone}) async {
     try {
       AppConstants.requestCollection.add({
         'userId': userId,
         'userStatus': userStatus,
         'status': AppConstants.statusIsSend,
+        'phone':phone,
         'lang': lang,
         'lat': lat,
         'requestFrom': requestFrom,
         'hospitalId': hospitalId,
         'medicalRecordFile': medicalRecordFile,
         'to': 'redCrescent'
+
       });
       return 'done';
     } catch (e) {
@@ -137,6 +140,7 @@ class Database {
       print('Error in show user location: ${e.toString()}');
     }
   }
+
 //update profile======================================================================
   static Future<String> updateProfile(
       {required String name,
@@ -144,11 +148,9 @@ class Database {
       required String phone,
       required String docId}) async {
     try {
-      await AppConstants.userCollection.doc(docId).update({
-        'name': name,
-        'address': address,
-        'phone': phone
-      });
+      await AppConstants.userCollection
+          .doc(docId)
+          .update({'name': name, 'address': address, 'phone': phone});
       return 'done';
     } on FirebaseException catch (e) {
       if (e.code == 'weak-password') {

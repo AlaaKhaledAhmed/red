@@ -23,8 +23,10 @@ class Emergency extends StatefulWidget {
 
 class _EmergencyState extends State<Emergency> {
   String? userId;
+
   LocationData? currentLocation;
   int? tab;
+  String? phone;
   @override
   void initState() {
     super.initState();
@@ -33,6 +35,7 @@ class _EmergencyState extends State<Emergency> {
       Duration.zero,
       () async {
         currentLocation = await Database.getCurrentLocation();
+         await getData();
       },
     );
   }
@@ -86,6 +89,7 @@ class _EmergencyState extends State<Emergency> {
                           requestFrom: AppConstants.requestFromPatient,
                           hospitalId: '',
                           medicalRecordFile: '',
+                          phone:phone!,
                         ).then((v) {
                           print('================$v');
                           if (v == 'done') {
@@ -140,5 +144,19 @@ class _EmergencyState extends State<Emergency> {
             ),
           );
         });
+  }
+  //======================================================
+  Future<void> getData() async {
+    await AppConstants.userCollection
+        .where("userId", isEqualTo: userId!)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        setState(() {
+          phone = element["phone"];
+
+        });
+      });
+    });
   }
 }
