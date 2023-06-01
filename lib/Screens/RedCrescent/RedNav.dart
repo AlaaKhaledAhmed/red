@@ -24,7 +24,7 @@ class RedNav extends StatefulWidget {
 }
 
 class _RedNavState extends State<RedNav> {
-  List<String?> selectHospital = [null, null, null];
+  List<String?> selectHospital = [null, null, null,null, null, null,null, null, null,null, null, null,null, null, null];
   String? selectHospitalId;
   List<String> hospitalNameList = ['الملك فهد', 'احد', 'المدينة العام'];
   List<String> hospitalIdList = [
