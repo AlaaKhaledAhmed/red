@@ -35,12 +35,12 @@ class _RequestState extends State<Request> {
       child: Scaffold(
           appBar: AppBarMain(
             title: "تتبع الطلب",
-            leading: IconButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  AppRoutes.pushReplacementTo(context, Login());
-                },
-                icon: const Icon(Icons.logout_rounded)),
+              action: [IconButton(
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    AppRoutes.pushReplacementTo(context, Login());
+                  },
+                  icon: const Icon(Icons.logout_rounded)),]
           ),
           body: SizedBox(
             // color: Colors.green,
