@@ -42,77 +42,80 @@ class _EmergencyState extends State<Emergency> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppBarMain(title: "الطوارئ"),
-      body: SizedBox(
-        height: AppWidget.getHeight(context),
-        width: AppWidget.getWidth(context),
-        child: Column(children: [
-          AppWidget.hSpace(30),
-          AppText(
-            text: "اختر حالة الطوارئ",
-            fontSize: AppSize.title2TextSize,
-            fontFamily: GoogleFonts.notoKufiArabic().fontFamily,
-            align: TextAlign.left,
-          ),
-          AppWidget.hSpace(30),
+    return Directionality(
+      textDirection:TextDirection.rtl ,
+      child: Scaffold(
+        appBar: const AppBarMain(title: "الطوارئ"),
+        body: SizedBox(
+          height: AppWidget.getHeight(context),
+          width: AppWidget.getWidth(context),
+          child: Column(children: [
+            AppWidget.hSpace(30),
+            AppText(
+              text: "اختر حالة الطوارئ",
+              fontSize: AppSize.title2TextSize,
+              fontFamily: GoogleFonts.notoKufiArabic().fontFamily,
+              align: TextAlign.left,
+            ),
+            AppWidget.hSpace(30),
 
-          /// list
-          Expanded(child: showEmergencyList()),
-          AppWidget.hSpace(20),
+            /// list
+            Expanded(child: showEmergencyList()),
+            AppWidget.hSpace(20),
 
-          ///send buttom
-          tab == null
-              ? const SizedBox()
-              : Padding(
-                  padding: EdgeInsets.only(bottom: 40.h),
-                  child: AppButtons(
-                    text: "ارسال",
-                    onPressed: () async {
-                      print('currentLocation)' + currentLocation.toString());
-                      AppLoading.show(context, 'lode', 'lode');
-                      if (currentLocation.toString() == "locationNotEnable") {
-                        Navigator.pop(context);
-                        AppLoading.show(context, AppMessage.addData,
-                            AppMessage.locationNotEnable);
-                      } else if (currentLocation.toString() ==
-                          'PERMISSION_DENIED') {
-                        Navigator.pop(context);
-                        AppLoading.show(
-                            context, AppMessage.addData, AppMessage.denied);
-                      } else {
-                        Database.sendRequest(
-                          userId: userId!,
-                          userStatus: AppConstants.list[tab!],
-                          lang: currentLocation!.longitude!,
-                          lat: currentLocation!.latitude!,
-                          requestFrom: AppConstants.requestFromPatient,
-                          hospitalId: '',
-                          medicalRecordFile: '',
-                          phone: phone!,
-                        ).then((v) {
-                          print('================$v');
-                          if (v == 'done') {
-                            setState(() {
-                              tab = null;
-                            });
-                            Navigator.pop(context);
-                            AppLoading.show(context, AppMessage.addData,
-                                AppMessage.doneData);
-                          } else {
-                            Navigator.pop(context);
-                            AppLoading.show(
-                                context, AppMessage.addData, AppMessage.erroe);
-                          }
-                        });
-                      }
-                    },
-                    bagColor: AppColor.blue,
-                    textStyleColor: AppColor.white,
-                    width: 120.w,
-                  ),
-                )
-        ]),
+            ///send buttom
+            tab == null
+                ? const SizedBox()
+                : Padding(
+                    padding: EdgeInsets.only(bottom: 40.h),
+                    child: AppButtons(
+                      text: "ارسال",
+                      onPressed: () async {
+                        print('currentLocation)' + currentLocation.toString());
+                        AppLoading.show(context, 'lode', 'lode');
+                        if (currentLocation.toString() == "locationNotEnable") {
+                          Navigator.pop(context);
+                          AppLoading.show(context, AppMessage.addData,
+                              AppMessage.locationNotEnable);
+                        } else if (currentLocation.toString() ==
+                            'PERMISSION_DENIED') {
+                          Navigator.pop(context);
+                          AppLoading.show(
+                              context, AppMessage.addData, AppMessage.denied);
+                        } else {
+                          Database.sendRequest(
+                            userId: userId!,
+                            userStatus: AppConstants.list[tab!],
+                            lang: currentLocation!.longitude!,
+                            lat: currentLocation!.latitude!,
+                            requestFrom: AppConstants.requestFromPatient,
+                            hospitalId: '',
+                            medicalRecordFile: '',
+                            phone: phone!,
+                          ).then((v) {
+                            print('================$v');
+                            if (v == 'done') {
+                              setState(() {
+                                tab = null;
+                              });
+                              Navigator.pop(context);
+                              AppLoading.show(context, AppMessage.addData,
+                                  AppMessage.doneData);
+                            } else {
+                              Navigator.pop(context);
+                              AppLoading.show(
+                                  context, AppMessage.addData, AppMessage.erroe);
+                            }
+                          });
+                        }
+                      },
+                      bagColor: AppColor.blue,
+                      textStyleColor: AppColor.white,
+                      width: 120.w,
+                    ),
+                  )
+          ]),
+        ),
       ),
     );
   }

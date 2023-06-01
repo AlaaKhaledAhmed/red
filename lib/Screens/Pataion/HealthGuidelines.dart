@@ -24,27 +24,30 @@ class HealthGuidelines extends StatefulWidget {
 class _HealthGuidelinesState extends State<HealthGuidelines> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppBarMain(title: "مركز المساعدة"),
-      body: SizedBox(
-        height: AppWidget.getHeight(context),
-        width: AppWidget.getWidth(context),
-        child: Column(children: [
-          AppWidget.hSpace(30),
-          AppText(
-            text: "اختر حالة الطوارئ",
-            fontSize: AppSize.title2TextSize,
-            fontFamily: GoogleFonts.notoKufiArabic().fontFamily,
-            align: TextAlign.left,
-          ),
-          AppWidget.hSpace(30),
+    return Directionality(
+      textDirection:TextDirection.rtl ,
+      child: Scaffold(
+        appBar: const AppBarMain(title: "مركز المساعدة"),
+        body: SizedBox(
+          height: AppWidget.getHeight(context),
+          width: AppWidget.getWidth(context),
+          child: Column(children: [
+            AppWidget.hSpace(30),
+            AppText(
+              text: "اختر حالة الطوارئ",
+              fontSize: AppSize.title2TextSize,
+              fontFamily: GoogleFonts.notoKufiArabic().fontFamily,
+              align: TextAlign.left,
+            ),
+            AppWidget.hSpace(30),
 
-          /// list
-          Expanded(child: showEmergencyList()),
-          AppWidget.hSpace(20),
+            /// list
+            Expanded(child: showEmergencyList()),
+            AppWidget.hSpace(20),
 
-          ///send buttom
-        ]),
+            ///send buttom
+          ]),
+        ),
       ),
     );
   }

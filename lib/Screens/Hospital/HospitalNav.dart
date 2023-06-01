@@ -31,58 +31,61 @@ class _HospitalNavState extends State<HospitalNav> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBarMain(
-          title: "الطلبات",
-          leading: IconButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                AppRoutes.pushReplacementTo(context, Login());
-              },
-              icon: const Icon(Icons.logout_rounded)),
-        ),
-        body: SizedBox(
-          // color: Colors.green,
-          height: AppWidget.getHeight(context),
-          width: AppWidget.getWidth(context),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.h,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+          appBar: AppBarMain(
+            title: "الطلبات",
+            leading: IconButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  AppRoutes.pushReplacementTo(context, Login());
+                },
+                icon: const Icon(Icons.logout_rounded)),
+          ),
+          body: SizedBox(
+            // color: Colors.green,
+            height: AppWidget.getHeight(context),
+            width: AppWidget.getWidth(context),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.h,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
 //body=====================================================
-                  Container(
-                    height: AppWidget.getHeight(context),
-                    decoration: AppWidget.decoration(radius: 10.r),
-                    width: AppWidget.getWidth(context),
-                    child: StreamBuilder(
-                        stream: AppConstants.requestCollection
-                            .where('to', isEqualTo: AppConstants.requestToRed)
-                            .orderBy('createdOn', descending: true)
-                            .snapshots(),
-                        builder: (context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasError) {
-                            return const Center(
-                                child: Text("Error check internet!"));
-                          }
-                          if (snapshot.hasData) {
-                            return body(snapshot);
-                          }
+                    Container(
+                      height: AppWidget.getHeight(context),
+                      decoration: AppWidget.decoration(radius: 10.r),
+                      width: AppWidget.getWidth(context),
+                      child: StreamBuilder(
+                          stream: AppConstants.requestCollection
+                              .where('userId', isEqualTo: userId!)
+                              .orderBy('createdOn', descending: true)
+                              .snapshots(),
+                          builder: (context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasError) {
+                              return const Center(
+                                  child: Text("Error check internet!"));
+                            }
+                            if (snapshot.hasData) {
+                              return body(snapshot);
+                            }
 
-                          return const Center(
-                              child: CircularProgressIndicator(
-                            color: AppColor.appBarColor,
-                          ));
-                        }),
-                  )
-                ],
+                            return const Center(
+                                child: CircularProgressIndicator(
+                              color: AppColor.appBarColor,
+                            ));
+                          }),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
 //show data from database========================================================================
