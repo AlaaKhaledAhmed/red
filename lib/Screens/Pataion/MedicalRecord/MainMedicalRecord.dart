@@ -45,6 +45,14 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                 Icons.add_chart,
                 size: 35.sp,
               )),
+          action: [
+            IconButton(
+                onPressed: () => AppRoutes.pushTo(context, AddMedicalRecord()),
+                icon: Icon(
+                  Icons.picture_as_pdf,
+                  size: 35.sp,
+                ))
+          ],
         ),
         body: AppWidget.body(
           child: Padding(
@@ -120,7 +128,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                                     fontSize: AppSize.subTextSize + 2,
                                   ),
 
-                                  ///phone and call
+                                  ///
                                   AppText(
                                     text: 'فصيلة الدم: ${data['bloodType']}',
                                     fontSize: AppSize.subTextSize + 2,
