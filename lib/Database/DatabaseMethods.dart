@@ -114,7 +114,19 @@ class Database {
       return 'error';
     }
   }
+//=======================updateRequest======================================
 
+  static updateRequestStuts({docId, required int status}) {
+    try {
+      AppConstants.requestCollection.doc(docId).update({
+        'status': status,       
+        'createdOn': FieldValue.serverTimestamp(),
+      });
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
   //=======================get Current Location======================================
   static Future getCurrentLocation() async {
     Location location = Location();

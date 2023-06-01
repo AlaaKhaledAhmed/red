@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:red_crescent/Screens/Pataion/MedicalRecord/MainMedicalRecord.dart';
 import 'package:red_crescent/Widget/AppDropList.dart';
 import 'package:red_crescent/Widget/AppLoading.dart';
-import 'package:red_crescent/Widget/AppValidator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:red_crescent/Database/DatabaseMethods.dart';
 import 'package:red_crescent/Widget/AppBarMain.dart';
@@ -149,7 +148,9 @@ class _RedNavState extends State<RedNav> {
                             )),
                       ),
 //Accept call menu==============================================================
-                     SizedBox(height: 10.h,),
+                      SizedBox(
+                        height: 10.h,
+                      ),
                       Row(
                         children: [
 //call==========================================================================================
@@ -283,14 +284,18 @@ class _RedNavState extends State<RedNav> {
                             AppWidget.decoration(color: AppColor.darkBlue),
                         child: IconButton(
                             onPressed: () async {
-                              AppRoutes.pushTo(context, MainMedicalRecord(
-                                userIdFromRed:data['userId'],
-                                fromRed:true,
-                              ));
+                              AppRoutes.pushTo(
+                                  context,
+                                  MainMedicalRecord(
+                                    userIdFromRed: data['userId'],
+                                    fromRed: true,
+                                  ));
                             },
                             icon: AppText(
-                                text: 'عرض السجل الطبي',
-                                fontSize: AppSize.subTextSize,color: AppColor.white,)),
+                              text: 'عرض السجل الطبي',
+                              fontSize: AppSize.subTextSize,
+                              color: AppColor.white,
+                            )),
                       )
                     ],
                   ),

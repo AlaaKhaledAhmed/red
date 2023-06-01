@@ -17,7 +17,9 @@ class AppMessage {
   static String noData = "لاتوجد بيانات لعرضها";
   static String medicalRecord = "السجل الطبي";
   static String accept = "قبول حالة الطوارئ";
+  static String reject = "رفض حالة الطوارئ";
   static String selectHospital = "عليك اختيار المشفى اولا";
   static String selectHospitalName ='اختر المشفى';
   static String confirmAccept ='هل ان متاكد من قبول الطلب؟';
+  static String confirmReject ='هل ان متاكد من رفض الطلب؟';
 }
