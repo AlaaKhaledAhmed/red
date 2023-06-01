@@ -190,8 +190,10 @@ class _RedNavState extends State<RedNav> {
                                               tab = i;
                                             });
                                             if (addKey.currentState
-                                                    ?.validate() ==
-                                                true) {
+                                                            ?.validate() ==
+                                                        true &&
+                                                    selectHospital[i] != null
+                                            ) {
                                               AppLoading.show(
                                                   context2,
                                                   AppMessage.accept,
@@ -213,7 +215,12 @@ class _RedNavState extends State<RedNav> {
                                                         hospitalId:
                                                             selectHospitalId!);
                                                   });
-                                            } else {}
+                                            } else {
+                                              AppLoading.show(
+                                                  context2,
+                                                  AppMessage.accept,
+                                                  AppMessage.selectHospital);
+                                            }
                                           },
                                     icon: Icon(
                                       Icons.check_circle_outlined,
