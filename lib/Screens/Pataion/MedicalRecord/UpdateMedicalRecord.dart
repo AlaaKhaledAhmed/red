@@ -13,14 +13,24 @@ import '../../../Database/DatabaseMethods.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Widget/AppText.dart';
 
-class AddMedicalRecord extends StatefulWidget {
-  const AddMedicalRecord({Key? key}) : super(key: key);
+class UpdateMedicalRecord extends StatefulWidget {
+  final String diseaseController;
+  final String bloodTypeController;
+  final String sensitiveController;
+  final String docId;
+  final String hospitalId;
+  const UpdateMedicalRecord(
+      {required this.diseaseController,
+      required this.bloodTypeController,
+      required this.hospitalId,
+      required this.sensitiveController,
+      required this.docId});
 
   @override
-  State<AddMedicalRecord> createState() => _AddMedicalRecordState();
+  State<UpdateMedicalRecord> createState() => _UpdateMedicalRecordState();
 }
 
-class _AddMedicalRecordState extends State<AddMedicalRecord> {
+class _UpdateMedicalRecordState extends State<UpdateMedicalRecord> {
   TextEditingController diseaseController = TextEditingController();
   TextEditingController bloodTypeController = TextEditingController();
   TextEditingController sensitiveController = TextEditingController();
@@ -32,11 +42,9 @@ class _AddMedicalRecordState extends State<AddMedicalRecord> {
   @override
   void initState() {
     super.initState();
-    userId = FirebaseAuth.instance.currentUser!.uid;
-    Future.delayed(Duration.zero, () async {
-      await getData();
-      print('foundRecord:$foundRecord');
-    });
+    diseaseController.text = widget.diseaseController;
+    sensitiveController.text = widget.sensitiveController;
+    bloodTypeController.text = widget.bloodTypeController;
   }
 
   @override
@@ -99,17 +107,17 @@ class _AddMedicalRecordState extends State<AddMedicalRecord> {
                   ),
                   AppWidget.hSpace(20.h),
                   AppButtons(
-                    text: 'اضافة للسجل الطبي',
+                    text: 'تعديل السجل الطبي',
                     onPressed: () {
                       if (updateKey.currentState!.validate()) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         AppLoading.show(context, '', 'lode');
-                        Database.addMidicalRecord(
+                        Database.updateMedicalRecord(
                                 bloodType: bloodTypeController.text,
                                 disease: diseaseController.text,
-                                hospitalId: '',
+                                hospitalId: widget.hospitalId,
                                 sensitive: sensitiveController.text,
-                                userId: userId!)
+                                docId: widget.docId)
                             .then((String v) {
                           print('================++$v');
                           if (v == 'done') {

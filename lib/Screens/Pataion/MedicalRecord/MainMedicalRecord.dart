@@ -19,6 +19,7 @@ import '../../../Widget/AppSvg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Widget/AppText.dart';
 import 'AddMedicalRecord.dart';
+import 'UpdateMedicalRecord.dart';
 
 class MainMedicalRecord extends StatefulWidget {
   const MainMedicalRecord();
@@ -53,6 +54,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
           action: [
             IconButton(
                 onPressed: () async {
+
                   GenerateContract.openPdf(
                       await GenerateContract.getDocumentPdf(
                           bytes: await showFile()));
@@ -104,12 +106,11 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                 shrinkWrap: true,
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (context2, i) {
+
                   var data = snapshot.data.docs[i].data();
-                  diseaseList.clear();
                   diseaseList.add(data['disease']);
-                  sensitiveList.clear();
                   sensitiveList.add(data['sensitive']);
-                  bloodType=data['bloodType'];
+                  bloodType = data['bloodType'];
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: SizedBox(
@@ -180,7 +181,17 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                                   AppWidget.decoration(color: AppColor.green),
                               width: double.infinity,
                               child: IconButton(
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                    AppRoutes.pushTo(
+                                        context,
+                                        UpdateMedicalRecord(
+                                          bloodTypeController: data['bloodType'],
+                                          docId: snapshot.data.docs[i].id,
+                                          diseaseController: data['disease'],
+                                          sensitiveController: data['sensitive'],
+                                          hospitalId: data['hospitalId'],
+                                        ));
+                                  },
                                   icon: Icon(
                                     Icons.edit,
                                     size: AppSize.iconSize,

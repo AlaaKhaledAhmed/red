@@ -189,6 +189,26 @@ class Database {
     }
   }
 
+  //====================================================
+  static Future<String> updateMedicalRecord({
+    required String docId,
+    required String hospitalId,
+    required String disease,
+    required String sensitive,
+    required String bloodType,
+  }) async {
+    try {
+      AppConstants.medicalRecordCollection.doc(docId).update({
+        'hospitalId': hospitalId,
+        'disease': disease,
+        'sensitive': sensitive,
+        'bloodType': bloodType,
+      });
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
   //=======================Delete  method======================================
   static Future<String> delete({
     required String docId,
