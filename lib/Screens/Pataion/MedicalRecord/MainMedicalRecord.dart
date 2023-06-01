@@ -130,7 +130,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                               trailing: IconButton(
                                   onPressed: () async {
                                     AppLoading.show(
-                                        context,
+                                        context2,
                                         AppMessage.deleteData,
                                         AppMessage.confirmDelete,
                                         showButtom: true,
@@ -139,28 +139,11 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                                         },
                                         higth: 100.h,
                                         yesFunction: () async {
-                                          AppLoading.show(
-                                              context, 'lode', 'lode');
+                                          Navigator.pop(context2);
                                           await Database.delete(
                                             collection: 'medicalRecord',
                                             docId: snapshot.data.docs[i].id,
-                                          ).then((value) {
-                                            if (value == 'done') {
-                                              Navigator.pop(context);
-                                              Navigator.pop(context2);
-                                              AppLoading.show(
-                                                  context2,
-                                                  AppMessage.deleteData,
-                                                  AppMessage.doneData);
-                                            } else {
-                                              Navigator.pop(context);
-                                              Navigator.pop(context2);
-                                              AppLoading.show(
-                                                  context2,
-                                                  AppMessage.deleteData,
-                                                  AppMessage.erroe);
-                                            }
-                                          });
+                                          );
                                         });
                                   },
                                   icon: Icon(
