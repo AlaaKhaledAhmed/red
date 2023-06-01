@@ -73,9 +73,13 @@ class AppWidget {
     if (status == 1) {
       return "قيد الانتظار";
     } else if (status == 2) {
-      return "مقبول";
+      return "قبول من الهلال الاحمر";
+    }else if (status == 3) {
+      return "رفض من الهلال الاحمر";
+    }else if (status == 4) {
+      return "قبول من المشفى";
     } else {
-      return "مرفوض";
+      return "رفض من المشفى";
     }
   }
 }

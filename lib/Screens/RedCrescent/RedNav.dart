@@ -159,7 +159,7 @@ class _RedNavState extends State<RedNav> {
                               margin:
                                   EdgeInsets.symmetric(horizontal: 10.w),
                               decoration: AppWidget.decoration(
-                                  color: AppConstants.statusIsAccept ==
+                                  color: AppConstants.statusIsAcceptFromRed ==
                                           data['status']
                                       ? AppColor.grey600
                                       : AppColor.blue),
@@ -192,7 +192,7 @@ class _RedNavState extends State<RedNav> {
                                                       docId: snapshot
                                                           .data.docs[i].id,
                                                       status: AppConstants
-                                                          .statusIsAccept,
+                                                          .statusIsAcceptFromRed,
                                                       hospitalId:
                                                           selectHospitalId!);
                                                 });
@@ -223,7 +223,7 @@ class _RedNavState extends State<RedNav> {
                                     return null;
                                   }
                                 },
-                                onChanged: AppConstants.statusIsAccept ==
+                                onChanged: AppConstants.statusIsAcceptFromRed ==
                                         data['status']
                                     ? null
                                     : (selectedItem) {
@@ -245,7 +245,7 @@ class _RedNavState extends State<RedNav> {
                                         });
                                       },
                                 listItem: hospitalNameList,
-                                hintText: AppConstants.statusIsAccept ==
+                                hintText: AppConstants.statusIsAcceptFromRed ==
                                         data['status']
                                     ? data['hospitalName']
                                     : AppMessage.selectHospitalName,

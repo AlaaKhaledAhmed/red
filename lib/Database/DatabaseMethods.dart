@@ -104,7 +104,7 @@ class Database {
     try {
       AppConstants.requestCollection.doc(docId).update({
 
-        'status': AppConstants.statusIsAccept,
+        'status': AppConstants.statusIsAcceptFromRed,
         'hospitalId': hospitalId,
         'createdOn': FieldValue.serverTimestamp(),
         'hospitalName': hospitalName
