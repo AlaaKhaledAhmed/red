@@ -104,7 +104,7 @@ class _EmergencyState extends State<Emergency> {
                             } else {
                               Navigator.pop(context);
                               AppLoading.show(
-                                  context, AppMessage.addData, AppMessage.erroe);
+                                  context, AppMessage.addData, AppMessage.error);
                             }
                           });
                         }

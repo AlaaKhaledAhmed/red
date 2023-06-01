@@ -104,7 +104,7 @@ class _AddMedicalRecordState extends State<AddMedicalRecord> {
                       if (updateKey.currentState!.validate()) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         AppLoading.show(context, '', 'lode');
-                        Database.addMidicalRecord(
+                        Database.addMedicalRecord(
                                 bloodType: bloodTypeController.text,
                                 disease: diseaseController.text,
                                 hospitalId: '',
@@ -120,7 +120,7 @@ class _AddMedicalRecordState extends State<AddMedicalRecord> {
                           } else {
                             Navigator.pop(context);
                             AppLoading.show(context, AppMessage.medicalRecord,
-                                AppMessage.erroe);
+                                AppMessage.error);
                           }
                         });
                       }

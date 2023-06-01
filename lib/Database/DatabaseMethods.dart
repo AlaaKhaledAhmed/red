@@ -91,6 +91,23 @@ class Database {
         'medicalRecordFile': medicalRecordFile,
         'to': 'redCrescent',
         'createdOn': FieldValue.serverTimestamp(),
+        'hospitalName': ''
+      });
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
+  //=======================updateRequest======================================
+
+  static updateRequest({required String hospitalName,required String hospitalId, docId, required int status}) {
+    try {
+      AppConstants.requestCollection.doc(docId).update({
+
+        'status': AppConstants.statusIsAccept,
+        'hospitalId': hospitalId,
+        'createdOn': FieldValue.serverTimestamp(),
+        'hospitalName': hospitalName
       });
       return 'done';
     } catch (e) {
@@ -167,7 +184,7 @@ class Database {
   }
 
   //====================================================
-  static Future<String> addMidicalRecord({
+  static Future<String> addMedicalRecord({
     required String userId,
     required String hospitalId,
     required String disease,
@@ -209,6 +226,7 @@ class Database {
       return 'error';
     }
   }
+
   //=======================Delete  method======================================
   static Future<String> delete({
     required String docId,
@@ -223,5 +241,5 @@ class Database {
     } catch (e) {
       return 'error';
     }
-   }
+  }
 }

@@ -113,7 +113,7 @@ class _ProfileState extends State<Profile> {
                           } else {
                             Navigator.pop(context);
                             AppLoading.show(
-                                context, AppMessage.updateData, AppMessage.erroe);
+                                context, AppMessage.updateData, AppMessage.error);
                           }
                         });
                       }

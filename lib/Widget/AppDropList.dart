@@ -32,7 +32,7 @@ class AppDropList extends StatelessWidget {
       ),
       items: listItem
           .map((item) => DropdownMenuItem(
-                // alignment: Alignment.centerRight,
+                 alignment: Alignment.centerRight,
                 value: item,
                 child: AppText(
                   fontSize: AppSize.textFieldsFontSize,

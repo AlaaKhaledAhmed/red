@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:red_crescent/Widget/AppDropList.dart';
+import 'package:red_crescent/Widget/AppLoading.dart';
+import 'package:red_crescent/Widget/AppValidator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:red_crescent/Database/DatabaseMethods.dart';
 import 'package:red_crescent/Widget/AppBarMain.dart';
@@ -11,7 +14,6 @@ import '../../Widget/AppSize.dart';
 import '../../Widget/AppText.dart';
 import '../../Widget/AppWidget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../Accounts/Login.dart';
 
 class RedNav extends StatefulWidget {
@@ -22,14 +24,16 @@ class RedNav extends StatefulWidget {
 }
 
 class _RedNavState extends State<RedNav> {
-  String? selectHospital;
+  List<String?> selectHospital = [null, null, null];
   String? selectHospitalId;
-  List<String>? selectHospitalNameList = ['الملك فهد', 'احد', 'المدينة العام'];
-  List<String>? selectHospitalIdList = [
+  List<String> hospitalNameList = ['الملك فهد', 'احد', 'المدينة العام'];
+  List<String> hospitalIdList = [
     'ZHc3fBUEOOaum5MtSOVLYYz2AY02',
     'tqqvMxnHefXWnrFfpcSW5ITh18o2',
     'qc6Dvyg0eRgnbZUYWPgj2HwJzZl2'
   ];
+  int? tab;
+  GlobalKey<FormState> addKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -94,18 +98,17 @@ class _RedNavState extends State<RedNav> {
         ? ListView.builder(
             shrinkWrap: true,
             itemCount: snapshot.data.docs.length,
-            itemBuilder: (context, i) {
+            itemBuilder: (context2, i) {
               var data = snapshot.data.docs[i].data();
               return Padding(
                 padding: EdgeInsets.symmetric(vertical: 5.h),
                 child: SizedBox(
-                  height: 220.h,
-                  width: AppWidget.getWidth(context),
+                  height: tab == i ? 260.h : 220.h,
+                  width: AppWidget.getWidth(context2),
                   child: Card(
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.r),
-                      //set border radius more than 50% of height and width to make circle
                     ),
 //user status=================================================================
                     child: Column(
@@ -173,13 +176,45 @@ class _RedNavState extends State<RedNav> {
                             Expanded(
                               child: Container(
                                 margin: EdgeInsets.symmetric(horizontal: 10.w),
-                                decoration:
-                                    AppWidget.decoration(color: AppColor.blue),
+                                decoration: AppWidget.decoration(
+                                    color: AppConstants.statusIsAccept ==
+                                            data['status']
+                                        ? AppColor.grey600
+                                        : AppColor.blue),
                                 child: IconButton(
-                                    onPressed: () async {
-                                      String url = 'tel:' + data['phone'];
-                                      await launch(url);
-                                    },
+                                    onPressed: AppConstants.statusIsSend !=
+                                            data['status']
+                                        ? null
+                                        : () async {
+                                            setState(() {
+                                              tab = i;
+                                            });
+                                            if (addKey.currentState
+                                                    ?.validate() ==
+                                                true) {
+                                              AppLoading.show(
+                                                  context2,
+                                                  AppMessage.accept,
+                                                  AppMessage.confirmAccept,
+                                                  showButtom: true,
+                                                  noFunction: () {
+                                                    Navigator.pop(context2);
+                                                  },
+                                                  higth: 100.h,
+                                                  yesFunction: () async {
+                                                    Navigator.pop(context2);
+                                                    await Database.updateRequest(
+                                                        hospitalName:
+                                                            '${selectHospital[i]}',
+                                                        docId: snapshot
+                                                            .data.docs[i].id,
+                                                        status: AppConstants
+                                                            .statusIsAccept,
+                                                        hospitalId:
+                                                            selectHospitalId!);
+                                                  });
+                                            } else {}
+                                          },
                                     icon: Icon(
                                       Icons.check_circle_outlined,
                                       size: AppSize.iconSize,
@@ -189,20 +224,42 @@ class _RedNavState extends State<RedNav> {
                             ),
 //select hospital==========================================================================================
                             Expanded(
-                              child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10.w),
-                                decoration:
-                                    AppWidget.decoration(color: AppColor.green),
-                                child: IconButton(
-                                    onPressed: () async {
-                                      String url = 'tel:' + data['phone'];
-                                      await launch(url);
-                                    },
-                                    icon: Icon(
-                                      Icons.check_circle_outlined,
-                                      size: AppSize.iconSize,
-                                      color: AppColor.white,
-                                    )),
+                              flex: 2,
+                              child: Form(
+                                key: tab == i ? addKey : null,
+                                child: AppDropList(
+                                  validator: (v) {
+                                    if (v == null) {
+                                      return AppMessage.empty;
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  onChanged: AppConstants.statusIsAccept ==
+                                          data['status']
+                                      ? null
+                                      : (selectedItem) {
+                                          setState(() {
+                                            {
+                                              selectHospital[i] = selectedItem!;
+                                              selectHospitalId = hospitalIdList[
+                                                  hospitalNameList
+                                                      .indexOf(selectedItem)];
+
+                                              print(
+                                                  'selectHospital: ${selectHospital[i]}');
+                                              print(
+                                                  'selectHospitalId: $selectHospitalId');
+                                            }
+                                          });
+                                        },
+                                  listItem: hospitalNameList,
+                                  hintText: AppConstants.statusIsAccept ==
+                                          data['status']
+                                      ? data['hospitalName']
+                                      : AppMessage.selectHospitalName,
+                                  dropValue: selectHospital[i],
+                                ),
                               ),
                             ),
                           ],

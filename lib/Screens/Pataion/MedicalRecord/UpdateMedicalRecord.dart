@@ -128,7 +128,7 @@ class _UpdateMedicalRecordState extends State<UpdateMedicalRecord> {
                           } else {
                             Navigator.pop(context);
                             AppLoading.show(context, AppMessage.medicalRecord,
-                                AppMessage.erroe);
+                                AppMessage.error);
                           }
                         });
                       }

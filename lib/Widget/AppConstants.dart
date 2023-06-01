@@ -8,6 +8,7 @@ class AppConstants {
   static int requestFromRed=1;
   static int requestFromPatient=2;
   static String requestToRed='redCrescent';
+  static String requestToHospital='hospital';
   static int requestFromHospital=3;
   static CollectionReference userCollection =
       FirebaseFirestore.instance.collection('users');
