@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:red_crescent/Screens/Pataion/MedicalRecord/MainMedicalRecord.dart';
 import 'package:red_crescent/Widget/AppDropList.dart';
 import 'package:red_crescent/Widget/AppLoading.dart';
 import 'package:red_crescent/Widget/AppValidator.dart';
@@ -24,7 +25,23 @@ class RedNav extends StatefulWidget {
 }
 
 class _RedNavState extends State<RedNav> {
-  List<String?> selectHospital = [null, null, null,null, null, null,null, null, null,null, null, null,null, null, null];
+  List<String?> selectHospital = [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ];
   String? selectHospitalId;
   List<String> hospitalNameList = ['الملك فهد', 'احد', 'المدينة العام'];
   List<String> hospitalIdList = [
@@ -83,7 +100,7 @@ class _RedNavState extends State<RedNav> {
             itemBuilder: (context2, i) {
               var data = snapshot.data.docs[i].data();
               return SizedBox(
-                height: tab == i ? 260.h : 220.h,
+                height: tab == i ? 310.h : 330.h,
                 width: AppWidget.getWidth(context2),
                 child: Card(
                   elevation: 5,
@@ -131,13 +148,14 @@ class _RedNavState extends State<RedNav> {
                               color: AppColor.green,
                             )),
                       ),
+//Accept call menu==============================================================
+                     SizedBox(height: 10.h,),
                       Row(
                         children: [
 //call==========================================================================================
                           Expanded(
                             child: Container(
-                              margin:
-                                  EdgeInsets.symmetric(horizontal: 10.w),
+                              margin: EdgeInsets.symmetric(horizontal: 10.w),
                               decoration: AppWidget.decoration(
                                   color: AppColor.darkBlue),
                               child: IconButton(
@@ -156,8 +174,7 @@ class _RedNavState extends State<RedNav> {
 
                           Expanded(
                             child: Container(
-                              margin:
-                                  EdgeInsets.symmetric(horizontal: 10.w),
+                              margin: EdgeInsets.symmetric(horizontal: 10.w),
                               decoration: AppWidget.decoration(
                                   color: AppConstants.statusIsAcceptFromRed ==
                                           data['status']
@@ -171,8 +188,7 @@ class _RedNavState extends State<RedNav> {
                                           setState(() {
                                             tab = i;
                                           });
-                                          if (addKey.currentState
-                                                      ?.validate() ==
+                                          if (addKey.currentState?.validate() ==
                                                   true &&
                                               selectHospital[i] != null) {
                                             AppLoading.show(
@@ -215,45 +231,66 @@ class _RedNavState extends State<RedNav> {
                             flex: 2,
                             child: Form(
                               key: tab == i ? addKey : null,
-                              child: AppDropList(
-                                validator: (v) {
-                                  if (v == null) {
-                                    return AppMessage.empty;
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                onChanged: AppConstants.statusIsAcceptFromRed ==
-                                        data['status']
-                                    ? null
-                                    : (selectedItem) {
-                                        setState(() {
-                                          {
-                                            selectHospital[i] =
-                                                selectedItem!;
-                                            selectHospitalId =
-                                                hospitalIdList[
-                                                    hospitalNameList
-                                                        .indexOf(
-                                                            selectedItem)];
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 8.0.w),
+                                child: AppDropList(
+                                  validator: (v) {
+                                    if (v == null) {
+                                      return AppMessage.empty;
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  onChanged: AppConstants.statusIsSend !=
+                                          data['status']
+                                      ? null
+                                      : (selectedItem) {
+                                          setState(() {
+                                            {
+                                              selectHospital[i] = selectedItem!;
+                                              selectHospitalId = hospitalIdList[
+                                                  hospitalNameList
+                                                      .indexOf(selectedItem)];
 
-                                            print(
-                                                'selectHospital: ${selectHospital[i]}');
-                                            print(
-                                                'selectHospitalId: $selectHospitalId');
-                                          }
-                                        });
-                                      },
-                                listItem: hospitalNameList,
-                                hintText: AppConstants.statusIsAcceptFromRed ==
-                                        data['status']
-                                    ? data['hospitalName']
-                                    : AppMessage.selectHospitalName,
-                                dropValue: selectHospital[i],
+                                              print(
+                                                  'selectHospital: ${selectHospital[i]}');
+                                              print(
+                                                  'selectHospitalId: $selectHospitalId');
+                                            }
+                                          });
+                                        },
+                                  listItem: hospitalNameList,
+                                  hintText:
+                                      AppConstants.statusIsAcceptFromRed ==
+                                              data['status']
+                                          ? data['hospitalName']
+                                          : AppMessage.selectHospitalName,
+                                  dropValue: selectHospital[i],
+                                ),
                               ),
                             ),
                           ),
                         ],
+                      )
+
+//show pataient medical record=========================================================================
+                      ,
+                      Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 20.h),
+                        decoration:
+                            AppWidget.decoration(color: AppColor.darkBlue),
+                        child: IconButton(
+                            onPressed: () async {
+                              AppRoutes.pushTo(context, MainMedicalRecord(
+                                userIdFromRed:data['userId'],
+                                fromRed:true,
+                              ));
+                            },
+                            icon: AppText(
+                                text: 'عرض السجل الطبي',
+                                fontSize: AppSize.subTextSize,color: AppColor.white,)),
                       )
                     ],
                   ),

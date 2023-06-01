@@ -88,10 +88,10 @@ class Database {
         'lat': lat,
         'requestFrom': requestFrom,
         'hospitalId': hospitalId,
-        'medicalRecordFile': medicalRecordFile,
         'to': 'redCrescent',
         'createdOn': FieldValue.serverTimestamp(),
-        'hospitalName': ''
+        'hospitalName': '',
+        
       });
       return 'done';
     } catch (e) {

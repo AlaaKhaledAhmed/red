@@ -27,7 +27,7 @@ class _PatientNavState extends State<PatientNav> {
 
   List<Widget> page = [
     const Emergency(),
-    const MainMedicalRecord(),
+    const MainMedicalRecord(fromRed: false, userIdFromRed: ''),
     const Request(),
     const HealthGuidelines(),
     const Profile(),

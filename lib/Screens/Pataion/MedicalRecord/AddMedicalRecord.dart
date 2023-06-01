@@ -14,7 +14,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../Widget/AppText.dart';
 
 class AddMedicalRecord extends StatefulWidget {
-  const AddMedicalRecord({Key? key}) : super(key: key);
+  final String userIdFromRed;
+  const AddMedicalRecord({Key? key, required this.userIdFromRed})
+      : super(key: key);
 
   @override
   State<AddMedicalRecord> createState() => _AddMedicalRecordState();
@@ -32,11 +34,9 @@ class _AddMedicalRecordState extends State<AddMedicalRecord> {
   @override
   void initState() {
     super.initState();
-    userId = FirebaseAuth.instance.currentUser!.uid;
-    Future.delayed(Duration.zero, () async {
-      await getData();
-      print('foundRecord:$foundRecord');
-    });
+    userId = widget.userIdFromRed.isEmpty
+        ? FirebaseAuth.instance.currentUser!.uid
+        : widget.userIdFromRed;
   }
 
   @override
@@ -133,24 +133,5 @@ class _AddMedicalRecordState extends State<AddMedicalRecord> {
             ),
           ))),
     );
-  }
-
-//========================================================================
-  Future<void> getData() async {
-    // await AppConstants.medicalRecordCollection
-    //     .where("userId", isEqualTo: userId!)
-    //     .get()
-    //     .then((value) {
-    //   foundRecord = value.docs.length;
-    // });
-  }
-
-//================================================================
-  showMidicalRecord() {
-    if (foundRecord == 0) {
-      AppLoading.show(context, AppMessage.medicalRecord, AppMessage.noData);
-    } else {
-      print('showwwwwww');
-    }
   }
 }

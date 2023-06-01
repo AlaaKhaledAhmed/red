@@ -22,7 +22,9 @@ import 'AddMedicalRecord.dart';
 import 'UpdateMedicalRecord.dart';
 
 class MainMedicalRecord extends StatefulWidget {
-  const MainMedicalRecord();
+  final String userIdFromRed;
+  final bool fromRed;
+  const MainMedicalRecord({required this.userIdFromRed, required this.fromRed});
 
   @override
   State<MainMedicalRecord> createState() => _MainMedicalRecordState();
@@ -37,63 +39,71 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
   @override
   void initState() {
     super.initState();
-    userId = FirebaseAuth.instance.currentUser?.uid;
+    userId = widget.userIdFromRed.isEmpty
+        ? FirebaseAuth.instance.currentUser!.uid
+        : widget.userIdFromRed;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBarMain(
-          title: "السجل الطبي",
-          leading: IconButton(
-              onPressed: () => AppRoutes.pushTo(context, AddMedicalRecord()),
-              icon: Icon(
-                Icons.add_chart,
-                size: 35.sp,
-              )),
-          action: [
-            IconButton(
-                onPressed: () async {
-                  GenerateContract.openPdf(
-                      await GenerateContract.getDocumentPdf(
-                          bytes: await showFile()));
-                },
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+          appBar: AppBarMain(
+            title: "السجل الطبي",
+            leading: IconButton(
+                onPressed: () => AppRoutes.pushTo(
+                    context,
+                    AddMedicalRecord(
+                      userIdFromRed: widget.userIdFromRed,
+                    )),
                 icon: Icon(
-                  Icons.picture_as_pdf,
+                  Icons.add_chart,
                   size: 35.sp,
-                ))
-          ],
-        ),
-        body: AppWidget.body(
-          child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10.h,
-              ),
-              child:
-//body=====================================================
-                  SizedBox(
-                height: 150.h,
-                child: StreamBuilder(
-                    stream: AppConstants.medicalRecordCollection
-                        .where('userId', isEqualTo: userId!)
-                        .orderBy('createdOn', descending: true)
-                        .snapshots(),
-                    builder: (context, AsyncSnapshot snapshot) {
-                      if (snapshot.hasError) {
-                        return const Center(
-                            child: Text("Error check internet!"));
-                      }
-                      if (snapshot.hasData) {
-                        return body(snapshot);
-                      }
+                )),
+            action: [
+              IconButton(
+                  onPressed: () async {
+                    GenerateFile.openPdf(await GenerateFile.getDocumentPdf(
+                        bytes: await showFile()));
+                  },
+                  icon: Icon(
+                    Icons.picture_as_pdf,
+                    size: 35.sp,
+                  ))
+            ],
+          ),
+          body: AppWidget.body(
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.h,
+                ),
+                child:
+                    //body=====================================================
+                    SizedBox(
+                  height: 150.h,
+                  child: StreamBuilder(
+                      stream: AppConstants.medicalRecordCollection
+                          .where('userId', isEqualTo: userId!)
+                          .orderBy('createdOn', descending: true)
+                          .snapshots(),
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasError) {
+                          return const Center(
+                              child: Text("Error check internet!"));
+                        }
+                        if (snapshot.hasData) {
+                          return body(snapshot);
+                        }
 
-                      return const Center(
-                          child: CircularProgressIndicator(
-                        color: AppColor.appBarColor,
-                      ));
-                    }),
-              )),
-        ));
+                        return const Center(
+                            child: CircularProgressIndicator(
+                          color: AppColor.appBarColor,
+                        ));
+                      }),
+                )),
+          )),
+    );
   }
 
 //show data from database========================================================================
@@ -106,7 +116,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (context2, i) {
                   var data = snapshot.data.docs[i].data();
-                  bloodType = data['bloodType'];
+
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: SizedBox(
@@ -147,24 +157,27 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                                 ],
                               ),
                               trailing: IconButton(
-                                  onPressed: () async {
-                                    AppLoading.show(
-                                        context2,
-                                        AppMessage.deleteData,
-                                        AppMessage.confirmDelete,
-                                        showButtom: true,
-                                        noFunction: () {
-                                          Navigator.pop(context2);
+                                  onPressed: widget.fromRed == true
+                                      ? null
+                                      : () async {
+                                          AppLoading.show(
+                                              context2,
+                                              AppMessage.deleteData,
+                                              AppMessage.confirmDelete,
+                                              showButtom: true,
+                                              noFunction: () {
+                                                Navigator.pop(context2);
+                                              },
+                                              higth: 100.h,
+                                              yesFunction: () async {
+                                                Navigator.pop(context2);
+                                                await Database.delete(
+                                                  collection: 'medicalRecord',
+                                                  docId:
+                                                      snapshot.data.docs[i].id,
+                                                );
+                                              });
                                         },
-                                        higth: 100.h,
-                                        yesFunction: () async {
-                                          Navigator.pop(context2);
-                                          await Database.delete(
-                                            collection: 'medicalRecord',
-                                            docId: snapshot.data.docs[i].id,
-                                          );
-                                        });
-                                  },
                                   icon: Icon(
                                     Icons.delete,
                                     size: AppSize.iconSize,
@@ -177,19 +190,22 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                                   AppWidget.decoration(color: AppColor.green),
                               width: double.infinity,
                               child: IconButton(
-                                  onPressed: () async {
-                                    AppRoutes.pushTo(
-                                        context,
-                                        UpdateMedicalRecord(
-                                          bloodTypeController:
-                                              data['bloodType'],
-                                          docId: snapshot.data.docs[i].id,
-                                          diseaseController: data['disease'],
-                                          sensitiveController:
-                                              data['sensitive'],
-                                          hospitalId: data['hospitalId'],
-                                        ));
-                                  },
+                                  onPressed: widget.fromRed == true
+                                      ? null
+                                      : () async {
+                                          AppRoutes.pushTo(
+                                              context,
+                                              UpdateMedicalRecord(
+                                                bloodTypeController:
+                                                    data['bloodType'],
+                                                docId: snapshot.data.docs[i].id,
+                                                diseaseController:
+                                                    data['disease'],
+                                                sensitiveController:
+                                                    data['sensitive'],
+                                                hospitalId: data['hospitalId'],
+                                              ));
+                                        },
                                   icon: Icon(
                                     Icons.edit,
                                     size: AppSize.iconSize,
@@ -214,7 +230,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
   //======================================
   Future showFile() async {
     await getData();
-    bytes = await GenerateContract.generatePdf(
+    bytes = await GenerateFile.generatePdf(
         bloodType: bloodType,
         sensitiveList: sensitiveList,
         pId: '',
@@ -234,6 +250,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
         setState(() {
           diseaseList.add(element["disease"]);
           sensitiveList.add(element["sensitive"]);
+          bloodType = element['bloodType'];
         });
       });
     });

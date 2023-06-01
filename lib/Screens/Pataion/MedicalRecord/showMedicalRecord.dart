@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
-class GenerateContract {
+class GenerateFile {
   //generateContract=============================================================
   static Future<Uint8List> generatePdf({
     required String pId,
@@ -49,7 +49,7 @@ class GenerateContract {
                             height: 60,
                             color: PdfColors.blue,
                             child: Center(
-                              child: showText('Patient Information:'),
+                              child: showText('معلومات المريض'),
                             )),
                       ),
                       // showParagraph(pragraf1),
@@ -161,16 +161,6 @@ class GenerateContract {
                 wordSpacing: 1,
                 //fontBold:Font.timesBold() ,
                 lineSpacing: 2)));
-  }
-
-  //save file in device======================================================================
-  static Future<File> saveDocument(
-      {required String name, required Document pdf}) async {
-    final bytes = await pdf.save();
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/$name');
-    await file.writeAsBytes(bytes);
-    return file;
   }
 
 //save file in device======================================================================
