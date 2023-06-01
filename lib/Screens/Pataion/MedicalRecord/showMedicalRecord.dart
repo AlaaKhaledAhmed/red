@@ -85,8 +85,8 @@ class GenerateContract {
                             itemCount: diseaseList.length,
                             itemBuilder: (context, i) {
                               return Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+
                                   children: [
                                     showText('${diseaseList[i]}'),
                                     showText('')
@@ -116,8 +116,7 @@ class GenerateContract {
                             itemCount: sensitiveList.length,
                             itemBuilder: (context, i) {
                               return Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     showText('${sensitiveList[i]}'),
                                     showText('')
