@@ -54,7 +54,6 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
           action: [
             IconButton(
                 onPressed: () async {
-
                   GenerateContract.openPdf(
                       await GenerateContract.getDocumentPdf(
                           bytes: await showFile()));
@@ -106,10 +105,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                 shrinkWrap: true,
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (context2, i) {
-
                   var data = snapshot.data.docs[i].data();
-                  diseaseList.add(data['disease']);
-                  sensitiveList.add(data['sensitive']);
                   bloodType = data['bloodType'];
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
@@ -185,10 +181,12 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                                     AppRoutes.pushTo(
                                         context,
                                         UpdateMedicalRecord(
-                                          bloodTypeController: data['bloodType'],
+                                          bloodTypeController:
+                                              data['bloodType'],
                                           docId: snapshot.data.docs[i].id,
                                           diseaseController: data['disease'],
-                                          sensitiveController: data['sensitive'],
+                                          sensitiveController:
+                                              data['sensitive'],
                                           hospitalId: data['hospitalId'],
                                         ));
                                   },
@@ -215,11 +213,29 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
 
   //======================================
   Future showFile() async {
+    await getData();
     bytes = await GenerateContract.generatePdf(
         bloodType: bloodType,
         sensitiveList: sensitiveList,
         pId: '',
         diseaseList: diseaseList);
     return bytes;
+  }
+
+  //================================
+  Future<void> getData() async {
+    await AppConstants.medicalRecordCollection
+        .where("userId", isEqualTo: userId!)
+        .get()
+        .then((value) {
+      diseaseList.clear();
+      sensitiveList.clear();
+      value.docs.forEach((element) {
+        setState(() {
+          diseaseList.add(element["disease"]);
+          sensitiveList.add(element["sensitive"]);
+        });
+      });
+    });
   }
 }
