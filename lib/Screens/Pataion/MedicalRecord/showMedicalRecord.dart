@@ -59,8 +59,8 @@ class GenerateContract {
                           mainAxisAlignment: MainAxisAlignment.end,
 
                           children: [
-                            showText('فصيلة الدم'),
-                            showText(bloodType),
+                            showText('فصيلة الدم: '+'${bloodType}'),
+
                           ]),
                       SizedBox(height: 15),
                       Container(

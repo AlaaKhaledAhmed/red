@@ -105,6 +105,11 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (context2, i) {
                   var data = snapshot.data.docs[i].data();
+                  diseaseList.clear();
+                  diseaseList.add(data['disease']);
+                  sensitiveList.clear();
+                  sensitiveList.add(data['sensitive']);
+                  bloodType=data['bloodType'];
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: SizedBox(
