@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:red_crescent/Screens/Pataion/MedicalRecord/showMedicalRecord.dart';
 import 'package:red_crescent/Widget/AppColors.dart';
 import 'package:red_crescent/Widget/AppMessage.dart';
 import 'package:red_crescent/Widget/AppRoutes.dart';
 import '../../../../Widget/AppBarMain.dart';
-import '../../../../Widget/AppButtons.dart';
+import 'dart:typed_data';
 import '../../../../Widget/AppConstants.dart';
 import '../../../../Widget/AppDropList.dart';
 import '../../../../Widget/AppLoading.dart';
@@ -28,6 +29,10 @@ class MainMedicalRecord extends StatefulWidget {
 
 class _MainMedicalRecordState extends State<MainMedicalRecord> {
   String? userId;
+  String bloodType = '';
+  Uint8List? bytes;
+  List diseaseList = [];
+  List sensitiveList = [];
   @override
   void initState() {
     super.initState();
@@ -47,7 +52,11 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
               )),
           action: [
             IconButton(
-                onPressed: () => AppRoutes.pushTo(context, AddMedicalRecord()),
+                onPressed: () async {
+                  GenerateContract.openPdf(
+                      await GenerateContract.getDocumentPdf(
+                          bytes: await showFile()));
+                },
                 icon: Icon(
                   Icons.picture_as_pdf,
                   size: 35.sp,
@@ -186,5 +195,15 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                 fontSize: AppSize.titleTextSize,
                 fontWeight: FontWeight.bold),
           );
+  }
+
+  //======================================
+  Future showFile() async {
+    bytes = await GenerateContract.generatePdf(
+        bloodType: bloodType,
+        sensitiveList: sensitiveList,
+        pId: '',
+        diseaseList: diseaseList);
+    return bytes;
   }
 }
