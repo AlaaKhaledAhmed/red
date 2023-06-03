@@ -16,6 +16,7 @@ class AppMessage {
   static String denied = "لا يمكنك حجز موعد ، تم رفض تشغيل الموقع الجغرافي";
   static String noData = "لاتوجد بيانات لعرضها";
   static String medicalRecord = "السجل الطبي";
+   static String report = "التقرير الطبي";
   static String accept = "قبول حالة الطوارئ";
   static String reject = "رفض حالة الطوارئ";
   static String selectHospital = "عليك اختيار المشفى اولا";

@@ -15,7 +15,9 @@ import '../../../Widget/AppText.dart';
 
 class AddMedicalRecord extends StatefulWidget {
   final String userIdFromRed;
-  const AddMedicalRecord({Key? key, required this.userIdFromRed})
+  final bool showReport;
+  const AddMedicalRecord(
+      {Key? key, required this.userIdFromRed, required this.showReport})
       : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class _AddMedicalRecordState extends State<AddMedicalRecord> {
   TextEditingController diseaseController = TextEditingController();
   TextEditingController bloodTypeController = TextEditingController();
   TextEditingController sensitiveController = TextEditingController();
+  TextEditingController reportController = TextEditingController();
   GlobalKey<FormState> updateKey = GlobalKey<FormState>();
 
   String? userId;
@@ -44,8 +47,8 @@ class _AddMedicalRecordState extends State<AddMedicalRecord> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: const AppBarMain(
-            title: 'السجل الطبي',
+          appBar: AppBarMain(
+            title: widget.showReport == true ? "التقرير الطبي" : 'السجل الطبي',
           ),
           body: AppWidget.body(
               child: Padding(
@@ -68,61 +71,111 @@ class _AddMedicalRecordState extends State<AddMedicalRecord> {
                   AppWidget.hSpace(30.h),
                   AppText(
                     fontSize: AppSize.title2TextSize,
-                    text:
-                        'من فضلك قم بتعبئة الحقول ادناه للاضافة على السجل الطبي',
+                    text: widget.showReport == true
+                        ? "من فضلك قم بتعبئة الحقل ادناه للاضافة على السجل الطبي"
+                        : 'من فضلك قم بتعبئة الحقول ادناه للاضافة على السجل الطبي',
                     color: AppColor.black,
                     fontWeight: FontWeight.bold,
                   ),
                   AppWidget.hSpace(20.h),
 
+                  ///add report=======================================
+                  widget.showReport == true
+                      ? AppTextFields(
+                          controller: reportController,
+                          labelText: 'اضافة تقرير للمريض',
+                          validator: (v) => AppValidator.validatorEmpty(v),
+                          minLines: 5,
+                          maxLines: 5,
+                        )
+                      : const SizedBox(),
+                  widget.showReport == true
+                      ? AppWidget.hSpace(AppSize.hSpace)
+                      : const SizedBox(),
+
                   ///disease=======================================
-                  AppTextFields(
-                    controller: diseaseController,
-                    labelText: 'اضافة مرض مزمن',
-                    validator: (v) => AppValidator.validatorEmpty(v),
-                  ),
-                  AppWidget.hSpace(AppSize.hSpace),
+                  widget.showReport == true
+                      ? const SizedBox()
+                      : AppTextFields(
+                          controller: diseaseController,
+                          labelText: 'اضافة مرض مزمن',
+                          validator: (v) => AppValidator.validatorEmpty(v),
+                        ),
+                  widget.showReport == true
+                      ? const SizedBox()
+                      : AppWidget.hSpace(AppSize.hSpace),
 
                   ///sensitive=======================================
-                  AppTextFields(
-                    controller: sensitiveController,
-                    labelText: 'اضافة حساسية',
-                    validator: (v) => AppValidator.validatorEmpty(v),
-                  ),
-                  AppWidget.hSpace(AppSize.hSpace),
+                  widget.showReport == true
+                      ? const SizedBox()
+                      : AppTextFields(
+                          controller: sensitiveController,
+                          labelText: 'اضافة حساسية',
+                          validator: (v) => AppValidator.validatorEmpty(v),
+                        ),
+                  widget.showReport == true
+                      ? const SizedBox()
+                      : AppWidget.hSpace(AppSize.hSpace),
 
                   ///bloodType=======================================
-                  AppTextFields(
-                    controller: bloodTypeController,
-                    labelText: 'فصيلة الدم',
-                    validator: (v) => AppValidator.validatorEmpty(v),
-                  ),
-                  AppWidget.hSpace(20.h),
+                  widget.showReport == true
+                      ? const SizedBox()
+                      : AppTextFields(
+                          controller: bloodTypeController,
+                          labelText: 'فصيلة الدم',
+                          validator: (v) => AppValidator.validatorEmpty(v),
+                        ),
+                  widget.showReport == true
+                      ? const SizedBox()
+                      : AppWidget.hSpace(20.h),
                   AppButtons(
-                    text: 'اضافة للسجل الطبي',
+                    text: widget.showReport == true
+                        ? "اضافة تقرير"
+                        : 'اضافة للسجل الطبي',
                     onPressed: () {
                       if (updateKey.currentState!.validate()) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         AppLoading.show(context, '', 'lode');
-                        Database.addMedicalRecord(
-                                bloodType: bloodTypeController.text,
-                                disease: diseaseController.text,
-                                hospitalId: '',
-                                sensitive: sensitiveController.text,
-                                userId: userId!)
-                            .then((String v) {
-                          print('================++$v');
-                          if (v == 'done') {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                            AppLoading.show(context, AppMessage.medicalRecord,
-                                AppMessage.doneData);
-                          } else {
-                            Navigator.pop(context);
-                            AppLoading.show(context, AppMessage.medicalRecord,
-                                AppMessage.error);
-                          }
-                        });
+                        widget.showReport == true
+                            ? Database.addReport(
+                                    reportText: reportController.text,
+                                    userId: userId!)
+                                .then((String v) {
+                                print('================++$v');
+                                if (v == 'done') {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  AppLoading.show(context, AppMessage.report,
+                                      AppMessage.doneData);
+                                } else {
+                                  Navigator.pop(context);
+                                  AppLoading.show(context, AppMessage.report,
+                                      AppMessage.error);
+                                }
+                              })
+                            : Database.addMedicalRecord(
+                                    bloodType: bloodTypeController.text,
+                                    disease: diseaseController.text,
+                                    hospitalId: '',
+                                    sensitive: sensitiveController.text,
+                                    userId: userId!)
+                                .then((String v) {
+                                print('================++$v');
+                                if (v == 'done') {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  AppLoading.show(
+                                      context,
+                                      AppMessage.medicalRecord,
+                                      AppMessage.doneData);
+                                } else {
+                                  Navigator.pop(context);
+                                  AppLoading.show(
+                                      context,
+                                      AppMessage.medicalRecord,
+                                      AppMessage.error);
+                                }
+                              });
                       }
                     },
                     // width: 270.w,

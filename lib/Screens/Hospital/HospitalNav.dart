@@ -189,6 +189,7 @@ class _HospitalNavState extends State<HospitalNav> {
                                                   status: AppConstants
                                                       .statusIsAcceptFromHospital,
                                                 );
+                                                setState(() {});
                                               });
                                         },
                                   icon: Icon(
@@ -239,6 +240,9 @@ class _HospitalNavState extends State<HospitalNav> {
                                                   status: AppConstants
                                                       .statusIsRejectFromHospital,
                                                 );
+                                                setState(() {
+                                                  
+                                                });
                                               });
                                         },
                                   icon: Icon(
@@ -256,17 +260,25 @@ class _HospitalNavState extends State<HospitalNav> {
                         width: double.infinity,
                         margin: EdgeInsets.symmetric(
                             horizontal: 10.w, vertical: 20.h),
-                        decoration:
-                            AppWidget.decoration(color: AppColor.darkBlue),
+                        decoration: AppWidget.decoration(
+                            color: data['status'] ==
+                                    AppConstants.statusIsRejectFromHospital
+                                ? AppColor.grey600
+                                : AppColor.darkBlue),
                         child: IconButton(
-                            onPressed: () async {
-                              AppRoutes.pushTo(
-                                  context,
-                                  MainMedicalRecord(
-                                    userIdFromRed: data['userId'],
-                                    fromRed: true,
-                                  ));
-                            },
+                            onPressed: data['status'] ==
+                                    AppConstants.statusIsRejectFromHospital
+                                ? null
+                                : () async {
+                                    AppRoutes.pushTo(
+                                        context,
+                                        MainMedicalRecord(
+                                          showReportSectionInPdf: true,
+                                          showReport: false,
+                                          userIdFromRed: data['userId'],
+                                          fromRed: true,
+                                        ));
+                                  },
                             icon: AppText(
                               text: 'عرض السجل الطبي',
                               fontSize: AppSize.subTextSize,

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.red_crescent">
    <application
-        android:label="red_crescent"
+        android:label="غوث"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

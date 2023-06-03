@@ -217,6 +217,22 @@ class Database {
       return 'error';
     }
   }
+  //====================================================
+  static Future<String> addReport({
+    required String userId,
+    required String reportText,
+  }) async {
+    try {
+      AppConstants.reportCollection.add({
+        'userId': userId,
+        'reportText': reportText,
+        'createdOn': FieldValue.serverTimestamp(),
+      });
+      return 'done';
+    } catch (e) {
+      return 'error';
+    }
+  }
 
   //====================================================
   static Future<String> updateMedicalRecord({

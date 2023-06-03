@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:red_crescent/Screens/Pataion/MedicalRecord/showMedicalRecord.dart';
@@ -24,7 +25,14 @@ import 'UpdateMedicalRecord.dart';
 class MainMedicalRecord extends StatefulWidget {
   final String userIdFromRed;
   final bool fromRed;
-  const MainMedicalRecord({required this.userIdFromRed, required this.fromRed});
+  final bool showReport;
+
+  final bool showReportSectionInPdf;
+  const MainMedicalRecord(
+      {required this.userIdFromRed,
+      required this.fromRed,
+      required this.showReportSectionInPdf,
+      required this.showReport});
 
   @override
   State<MainMedicalRecord> createState() => _MainMedicalRecordState();
@@ -36,6 +44,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
   Uint8List? bytes;
   List diseaseList = [];
   List sensitiveList = [];
+  List<String> reportsList = [];
   @override
   void initState() {
     super.initState();
@@ -46,6 +55,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
 
   @override
   Widget build(BuildContext context) {
+    print('reportsList in mainMedical: $reportsList');
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -55,6 +65,7 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
                 onPressed: () => AppRoutes.pushTo(
                     context,
                     AddMedicalRecord(
+                      showReport: widget.showReport,
                       userIdFromRed: widget.userIdFromRed,
                     )),
                 icon: Icon(
@@ -64,8 +75,10 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
             action: [
               IconButton(
                   onPressed: () async {
+                    AppLoading.show(context, 'lode', 'lode');
                     GenerateFile.openPdf(await GenerateFile.getDocumentPdf(
                         bytes: await showFile()));
+                        Navigator.pop(context);
                   },
                   icon: Icon(
                     Icons.picture_as_pdf,
@@ -230,7 +243,10 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
   //======================================
   Future showFile() async {
     await getData();
+    await getReports();
     bytes = await GenerateFile.generatePdf(
+        showReport: widget.showReportSectionInPdf,
+        reportsList: reportsList,
         bloodType: bloodType,
         sensitiveList: sensitiveList,
         pId: '',
@@ -251,6 +267,21 @@ class _MainMedicalRecordState extends State<MainMedicalRecord> {
           diseaseList.add(element["disease"]);
           sensitiveList.add(element["sensitive"]);
           bloodType = element['bloodType'];
+        });
+      });
+    });
+  }
+
+//================================
+  Future<void> getReports() async {
+    await AppConstants.reportCollection
+        .where("userId", isEqualTo: userId!)
+        .get()
+        .then((value) {
+      reportsList.clear();
+      value.docs.forEach((element) {
+        setState(() {
+          reportsList.add(element["reportText"]);
         });
       });
     });

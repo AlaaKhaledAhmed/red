@@ -287,6 +287,8 @@ class _RedNavState extends State<RedNav> {
                               AppRoutes.pushTo(
                                   context,
                                   MainMedicalRecord(
+                                     showReportSectionInPdf: true,
+                                    showReport: true,
                                     userIdFromRed: data['userId'],
                                     fromRed: true,
                                   ));

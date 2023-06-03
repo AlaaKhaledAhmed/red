@@ -14,7 +14,10 @@ class GenerateFile {
     required List diseaseList,
     required List sensitiveList,
     PdfPageFormat? format,
+    required bool showReport,
+    required List reportsList,
   }) async {
+     print('reportsList in pdf: $reportsList');
     var arabicFont = Font.ttf(
         await rootBundle.load("assets/font/DINNextLTArabic-Regular-2.ttf"));
     final pdf = Document(
@@ -23,14 +26,17 @@ class GenerateFile {
         compress: false);
     pdf.addPage(
       MultiPage(
-
           margin:
               const EdgeInsets.only(left: 25, right: 25, bottom: 40, top: 40),
           //pageTheme: ,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           footer: (context) {
-            final pages = "ص"+" "+"${context.pageNumber}"+" من "+"${context.pagesCount} ";
+            final pages = "ص" +
+                " " +
+                "${context.pageNumber}" +
+                " من " +
+                "${context.pagesCount} ";
             return Center(
                 child: Text(pages, style: const TextStyle(fontSize: 15)));
           },
@@ -54,14 +60,9 @@ class GenerateFile {
                       ),
                       // showParagraph(pragraf1),
                       SizedBox(height: 30),
-                      Row(
-
-                          mainAxisAlignment: MainAxisAlignment.end,
-
-                          children: [
-                            showText('فصيلة الدم: '+'${bloodType}'),
-
-                          ]),
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        showText('فصيلة الدم: ' + '${bloodType}'),
+                      ]),
                       SizedBox(height: 15),
                       Container(
                           height: 2,
@@ -86,7 +87,6 @@ class GenerateFile {
                             itemBuilder: (context, i) {
                               return Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
-
                                   children: [
                                     showText('${diseaseList[i]}'),
                                     showText('')
@@ -123,6 +123,43 @@ class GenerateFile {
                                   ]);
                             },
                           )),
+//==============================================================
+                      showReport == false
+                          ? SizedBox()
+                          : Container(
+                              height: 2,
+                              width: double.infinity,
+                              color: PdfColors.blueAccent),
+                      showReport == false ? SizedBox() : SizedBox(height: 10),
+//reports==========================================================================
+                      showReport == false ? SizedBox() : SizedBox(height: 10),
+
+                      showReport == false ? SizedBox() : showText('التقارير'),
+                      showReport == false
+                          ? SizedBox()
+                          : Container(
+                              height: 2,
+                              width: double.infinity,
+                              color: PdfColors.blueAccent),
+                      showReport == false ? SizedBox() : SizedBox(height: 10),
+//==============================================================
+
+                      showReport == false
+                          ? SizedBox()
+                          : SizedBox(
+                              height: 150,
+                              width: double.infinity,
+                              child: ListView.builder(
+                                itemCount: reportsList.length,
+                                itemBuilder: (context, i) {
+                                  return Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        showText('${reportsList[i]}'),
+                                        showText('')
+                                      ]);
+                                },
+                              )),
                     ])
               ]),
     );
