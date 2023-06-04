@@ -24,7 +24,7 @@ class Emergency extends StatefulWidget {
 class _EmergencyState extends State<Emergency> {
   String? userId;
 
-  LocationData? currentLocation;
+  var currentLocation;
   int? tab;
   String? phone;
   @override
@@ -43,7 +43,7 @@ class _EmergencyState extends State<Emergency> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection:TextDirection.rtl ,
+      textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: const AppBarMain(title: "الطوارئ"),
         body: SizedBox(
@@ -76,7 +76,9 @@ class _EmergencyState extends State<Emergency> {
                         if (currentLocation.toString() == "locationNotEnable") {
                           Navigator.pop(context);
                           AppLoading.show(context, AppMessage.addData,
-                              AppMessage.locationNotEnable);
+                              AppMessage.locationNotEnable,
+                              higth: 100.h
+                              );
                         } else if (currentLocation.toString() ==
                             'PERMISSION_DENIED') {
                           Navigator.pop(context);
@@ -103,8 +105,8 @@ class _EmergencyState extends State<Emergency> {
                                   AppMessage.doneData);
                             } else {
                               Navigator.pop(context);
-                              AppLoading.show(
-                                  context, AppMessage.addData, AppMessage.error);
+                              AppLoading.show(context, AppMessage.addData,
+                                  AppMessage.error);
                             }
                           });
                         }

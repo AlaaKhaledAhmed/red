@@ -13,7 +13,7 @@ class AppMessage {
   static String userNotFound = "المستخدم غير موجود";
   static String error = "حدث خطا ما";
   static String locationNotEnable = "عليك تفعيل الموقع الجغرافي اولا";
-  static String denied = "لا يمكنك حجز موعد ، تم رفض تشغيل الموقع الجغرافي";
+  static String denied = "تم رفض تشغيل الموقع الجغرافي";
   static String noData = "لاتوجد بيانات لعرضها";
   static String medicalRecord = "السجل الطبي";
    static String report = "التقرير الطبي";
